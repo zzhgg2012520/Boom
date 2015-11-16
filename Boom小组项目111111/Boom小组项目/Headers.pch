@@ -43,17 +43,19 @@
 #import "SearchViewController.h"
 #import "BusinessTableViewController.h"
 #import "SceneTableViewController.h"
-#import "CategoryViewController.h"
+#import "GategoryViewController.h"
 //Helper
 #import "SearchDataManager.h"
 //cell
 #import "sceneCollectionViewCell.h"
 #import "ListCell.h"
 #import "BusinessCell.h"
+#import "GategoryCell.h"
 //model
 #import "List.h"
 #import "scene.h"
 #import "Business.h"
+
 
 
 #pragma mark -- Page_3

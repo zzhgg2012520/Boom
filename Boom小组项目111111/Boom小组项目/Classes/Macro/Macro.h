@@ -16,6 +16,7 @@
 #define SCROLLWIDTH (self.view.bounds.size.width)
 #define kSceneListUrl @"http://www.molyo.com//mShop/scene/getSceneListV1_7?cityId=%@"
 #define kBusinessUrl @"http://www.molyo.com//mShop/bdistrict/getBusinessDistrictList?cityId=%@"
+#define kGategoryUrl @"http://www.molyo.com//mShop/category/getAllChannelCategoryV1_7?cityId=%@"
 #define kListUrl @"http://www.molyo.com//mShop/getShopList?cityId=shenzhen&longitude=116.34381300000000&latitude=40.03028800000000&pageSize=8&currentPage=1&channelId=&categoryId=&sceneId=&districtId=&liveCircleId=&businessDistrictId=1504141041355306a6d1120bcb261487&netWork=wifi&device=MI+1SC&os=Android+4.1.2&osType=android"
 #define kSceneDetailUrl @"http://www.molyo.com//mShop/getShopList?cityId=%@&longitude=116.34349600000000&latitude=40.03029200000000&pageSize=8&currentPage=1&channelId=&categoryId=&sceneId=%@&districtId=&liveCircleId=&businessDistrictId=&netWork=wifi&device=MI+1SC&os=Android+4.1.2&osType=android"
 

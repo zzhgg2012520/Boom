@@ -280,7 +280,7 @@ static NSString *const sceneCellID = @"scene";
 - (void)allButtonAction:(UIButton *)sender
 {
     self.hidesBottomBarWhenPushed = YES;
-    CategoryViewController *allTypeCVC = [CategoryViewController new];
+    GategoryViewController *allTypeCVC = [GategoryViewController new];
     [self.navigationController pushViewController:allTypeCVC animated:YES];
     self.hidesBottomBarWhenPushed = NO;
 }
