@@ -12,16 +12,16 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="125" height="99"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1.png" translatesAutoresizingMaskIntoConstraints="NO" id="mYi-Xh-ErG">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mYi-Xh-ErG">
                         <rect key="frame" x="0.0" y="0.0" width="125" height="99"/>
                     </imageView>
                     <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dfg-qN-Jqk">
                         <rect key="frame" x="0.0" y="0.0" width="125" height="99"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="qq" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mmy-gs-0lM">
-                        <rect key="frame" x="20" y="54" width="85" height="25"/>
-                        <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mmy-gs-0lM">
+                        <rect key="frame" x="20" y="10" width="85" height="69"/>
+                        <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -40,6 +40,7 @@
                 <constraint firstAttribute="bottom" secondItem="mYi-Xh-ErG" secondAttribute="bottom" id="jJm-6V-8DD"/>
                 <constraint firstAttribute="bottom" secondItem="dfg-qN-Jqk" secondAttribute="bottom" id="lmc-GZ-6QU"/>
                 <constraint firstAttribute="trailing" secondItem="Mmy-gs-0lM" secondAttribute="trailing" constant="20" id="p8C-0A-pUG"/>
+                <constraint firstItem="Mmy-gs-0lM" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="tAK-Cb-KSX"/>
             </constraints>
             <size key="customSize" width="108" height="99"/>
             <connections>
@@ -49,7 +50,4 @@
             <point key="canvasLocation" x="366.5" y="446.5"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="1.png" width="295" height="190"/>
-    </resources>
 </document>

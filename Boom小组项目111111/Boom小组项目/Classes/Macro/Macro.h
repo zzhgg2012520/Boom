@@ -18,7 +18,11 @@
 #define kBusinessUrl @"http://www.molyo.com//mShop/bdistrict/getBusinessDistrictList?cityId=%@"
 #define kGategoryUrl @"http://www.molyo.com//mShop/category/getAllChannelCategoryV1_7?cityId=%@"
 #define kListUrl @"http://www.molyo.com//mShop/getShopList?cityId=shenzhen&longitude=116.34381300000000&latitude=40.03028800000000&pageSize=8&currentPage=1&channelId=&categoryId=&sceneId=&districtId=&liveCircleId=&businessDistrictId=1504141041355306a6d1120bcb261487&netWork=wifi&device=MI+1SC&os=Android+4.1.2&osType=android"
-#define kSceneDetailUrl @"http://www.molyo.com//mShop/getShopList?cityId=%@&longitude=116.34349600000000&latitude=40.03029200000000&pageSize=8&currentPage=1&channelId=&categoryId=&sceneId=%@&districtId=&liveCircleId=&businessDistrictId=&netWork=wifi&device=MI+1SC&os=Android+4.1.2&osType=android"
+#define kBusinessDetailDropUrl @"http://www.molyo.com//mShop/getShopList?cityId=%@&longitude=116.34381300000000&latitude=40.03028800000000&pageSize=8&currentPage=%ld&channelId=%@categoryId=&sceneId=&districtId=&liveCircleId=&businessDistrictId=%@netWork=wifi&device=MI+1SC&os=Android+4.1.2&osType=android"
+#define kBusinessDetailPullUrl @"http://www.molyo.com//mShop/getShopList?cityId=%@&longitude=116.34381300000000&latitude=40.03028800000000&pageSize=8&currentPage=1&channelId=%@categoryId=%@sceneId=&districtId=&liveCircleId=&businessDistrictId=%@netWork=wifi&device=MI+1SC&os=Android+4.1.2&osType=android"
+#define kSceneDetailUrl @"http://www.molyo.com//mShop/getShopList?cityId=%@%@longitude=116.34349600000000&latitude=40.03029200000000&pageSize=8&currentPage=%ld&channelId=&categoryId=&sceneId=%@&districtId=&liveCircleId=&businessDistrictId=&netWork=wifi&device=MI+1SC&os=Android+4.1.2&osType=android"
+#define kTypeUrl @"http://www.molyo.com//mShop/getShopList?cityId=%@&longitude=116.34357300000000&latitude=40.02992200000000&pageSize=8&currentPage=1&channelId=%@&categoryId=%@&sceneId=&districtId=&liveCircleId=&businessDistrictId=&netWork=wifi&device=MI+1SC&os=Android+4.1.2&osType=android"
+#define kSearchUrl @"http://www.molyo.com//mSearch/getList?cityId=%@&q=%@&longitude=116.34357400000000&latitude=40.03000500000000&pageSize=8&currentPage=%ld&module=shop&netWork=wifi&device=MI+1SC&os=Android+4.1.2&osType=android"
 
 #pragma mark -- Page_3
 #define SCROLLHEIGHT_3 (self.view.frame.size.height)

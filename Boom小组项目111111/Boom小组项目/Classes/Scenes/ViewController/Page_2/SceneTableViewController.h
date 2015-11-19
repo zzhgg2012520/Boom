@@ -10,6 +10,7 @@
 @class scene;
 @interface SceneTableViewController : UITableViewController
 
-@property (nonatomic,strong) scene *scene;
+@property (nonatomic,strong) scene * scene;
+@property (nonatomic,strong) NSString * qStr;
 
 @end
