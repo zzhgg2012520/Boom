@@ -47,6 +47,9 @@ YALContextMenuTableViewDelegate
     self.navigationItem.rightBarButtonItem = self.rightItem;
     [self.navigationItem.rightBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:16], NSFontAttributeName, [UIColor whiteColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
     
+    //添加leftBarButtonItem
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"img_scan_white.png"] style:UIBarButtonItemStylePlain target:self action:@selector(leftBarButtonItemAction:)];
+    
     // title
     self.navigationItem.title = @"多啦";
     
@@ -58,6 +61,13 @@ YALContextMenuTableViewDelegate
     // 上拉加载
     [self pullToLoadData];
 
+}
+
+- (void)leftBarButtonItemAction:(UIBarButtonItem *)sender
+{
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:[Two_dimensional_codeViewController new] animated:YES ];
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 // 下拉刷新

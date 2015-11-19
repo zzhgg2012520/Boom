@@ -13,21 +13,13 @@
 - (void)setList:(List *)list
 {
     self.descLabel.text = list.desc;
-    self.nameAndAreaLabel.text = [NSString stringWithFormat:@"%@,%@",list.name,list.area];
+    if (list.area == NULL) {
+        self.nameAndAreaLabel.text = [NSString stringWithFormat:@"%@,%@",list.name,@""];
+    }else {
+        self.nameAndAreaLabel.text = [NSString stringWithFormat:@"%@,%@",list.name,list.area];
+    }
     self.distanceLabel.text = [NSString stringWithFormat:@"距离%@km",list.distance];
     [self.imgView sd_setImageWithURL:[NSURL URLWithString:list.img]];
-    
-//    if ([list.services containsObject:@"card"] == YES) {
-//        self.vipImgView.image = [UIImage imageNamed:@"img_sign_vipcard"];
-//    }
-//    
-//    if ([list.services containsObject:@"treatment"] == YES) {
-//        self.treatmentImgView.image = [UIImage imageNamed:@"img_sign_treatment"];
-//    }
-//    
-//    if ([list.services containsObject:@"pay"] == YES) {
-//        self.payImg.image = [UIImage imageNamed:@"img_sign_pay"];
-//    }
 
     for (NSString *str in list.services) {
         if ([str isEqualToString:@"card"]) {
