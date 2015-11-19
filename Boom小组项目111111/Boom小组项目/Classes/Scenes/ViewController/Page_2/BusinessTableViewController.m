@@ -9,17 +9,17 @@
 #import "BusinessTableViewController.h"
 
 @interface BusinessTableViewController ()<MKMapViewDelegate,CLLocationManagerDelegate>
-{
+
     //定义管理类
-    CLLocationManager *manager;
-    CLLocation *userLocation;
-}
+@property (nonatomic,strong) CLLocationManager * manager;
+@property (nonatomic,strong) CLLocation * userLocation;
+
 //当前页
 @property (nonatomic,assign) NSInteger currentPage;
 //右上角的map和列表切换
 @property (nonatomic,assign)BOOL mapSwitch;
 //地图View
-@property (nonatomic,strong) MKMapView *mapView;
+@property (nonatomic,strong) MKMapView * mapView;
 
 @end
 
@@ -30,7 +30,7 @@ static NSString *const listCellID = @"listCell";
     [super viewDidLoad];
     
     //navigationController的title的name
-    self.navigationItem.title = self.business.name;
+    self.title = _titleStr;
  
     
     //修改了navigationBar.barTintColor背景的颜色和tintColor的字体颜色
@@ -66,34 +66,42 @@ static NSString *const listCellID = @"listCell";
 //初始化地图
 - (void)initMapView
 {
+    // 创建地图
     self.mapView = [[MKMapView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
+    // 设置地图属性
+    
+    // 设置地图类型
+    self.mapView.mapType = 0;
+    
+    //用户位置
+    //mapView.userLocation = @"经纬度";
     self.mapView.showsUserLocation = YES;
-    //判断系统
+    
+    // 判断系统
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
         
-        //允许定位,需要在info.plist里面添加字段，并且和此处保持一致
-        manager = [[CLLocationManager alloc] init];
-        
-        //设置权限为使用时进行定位
-        [manager requestWhenInUseAuthorization];
-        
-        //这是用户的跟踪模式:为一直跟踪
-        [_mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
+        // 允许定位 需要在info.plist里面添加字段，并且和此处保持一致
+        // 这个启动权限是不是cllcationmanager里的
+        _manager = [[CLLocationManager alloc] init];
+        [_manager requestWhenInUseAuthorization];
         
     }
-
-    //设置地图的代理
-    _mapView.delegate = self;
     
-    //设置地图管理类的代理
-    manager.delegate = self;
+    // 设置用户跟踪模式 为一直跟踪
+    [self.mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
     
-    //距离筛选器：设置最小的人的位置更新提示距离
-    manager.desiredAccuracy = 1000;
+    // 添加到视图上
+//    [self.view addSubview:self.mapView];
     
-    //开始定位
-    [manager startUpdatingLocation];
+    // 设置地图的代理
+    self.mapView.delegate = self;
+    
+    // 距离筛选器 设置最小的距离更新提示距离
+    _manager.desiredAccuracy = 100;
+    
+    // 开始定位
+    [_manager startUpdatingLocation];
     
     [self.view sendSubviewToBack:self.mapView];
 }
@@ -102,36 +110,72 @@ static NSString *const listCellID = @"listCell";
 #pragma mark -- 用户位置发生了变化
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-    //NSLog(@"%d,%s",__LINE__,__FUNCTION__);
-    //NSLog(@"title = %@,subtitle = %@",userLocation.title,userLocation.subtitle);
+    userLocation.title = @"你的位置哦";
     
-    //蓝色小点得气泡
-//    userLocation.title = @"我爱你";
-//    userLocation.subtitle = @"小甜心";
-
+    //系统大头针：插大头针
+    MKPointAnnotation * point = [[MKPointAnnotation alloc] init];
+    point.coordinate = userLocation.coordinate;
+    [mapView addAnnotation:point];
     
-//    CLLocationDegrees lait = location.coordinate.latitude;
-//    
-//    CLLocationDegrees longit = location.coordinate.longitude;
-    
-    //userLocation = [[CLLocation alloc] initWithLatitude:lait longitude:longit];
-
-    
-//    //插一根大头针
-//    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
-//    
-//    //插入的位置
-//    CLLocationCoordinate2D theLocation = userLocation.coordinate;
-//    point.coordinate = theLocation;
-//    
-//    [mapView addAnnotation:point];
 }
-//增加返回和地图键
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
+    
+    //NSLog(@"从旧位置到新位置");
+    
+}
+
+- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray<MKAnnotationView *> *)views
+{
+    //自定义大头针
+    for (List *list in [[SearchDataManager sharedDataManager] listArray]) {
+        
+        CLLocationCoordinate2D myCoor = CLLocationCoordinate2DMake([list.latitude doubleValue], [list.longitude doubleValue]);
+        MyAnnotation * myAnnotation = [[MyAnnotation alloc] iniWithTitle:list.name subtitle:list.desc coordinate:myCoor];
+        
+        [mapView addAnnotation:myAnnotation];
+    }
+}
+
+#pragma mark --
+//往地图上添加标记，例如大头针的时候会走
+//创建重用标识符
+static NSString *const reuseID = @"annotaion";
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    if ([annotation isKindOfClass:[MKUserLocation class]]) {
+        return nil;
+    }
+    
+    //根据重用标识符查找是否有创建好的可重用的
+    MKPinAnnotationView *pinAnnotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseID];
+    //创建气泡
+    if (!pinAnnotationView) {
+        //如果没有，就去创建
+        pinAnnotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseID];
+    }
+    
+    //左视图
+    UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_map_food"]];
+    imageView.frame = CGRectMake(0, 0, 30, 50);
+    [pinAnnotationView setLeftCalloutAccessoryView:imageView];
+    
+    //打开视图
+    pinAnnotationView.canShowCallout = YES;
+    
+    //返回
+    return pinAnnotationView;
+}
+
+#pragma mark --
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+{
+//    NSLog(@"点击气泡的时候走了");
+}
+
+//增加地图键
 - (void)addBackAndMapButton
 {
-    //返回键
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"abc_ic_ab_back_mtrl_am_alpha"] style:UIBarButtonItemStylePlain target:self action:@selector(backAction:)];
-    
     //地图键
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_map_mode"] style:UIBarButtonItemStylePlain target:self action:@selector(mapAction:)];
 }
@@ -172,7 +216,7 @@ static NSString *const listCellID = @"listCell";
             
             [weakSelf.tableView reloadData];
             
-            NSString *strUrl = [NSString stringWithFormat:@"http://www.molyo.com//mShop/getShopList?cityId=%@&longitude=116.34381300000000&latitude=40.03028800000000&pageSize=8&currentPage=%ld&channelId=%@categoryId=&sceneId=&districtId=&liveCircleId=&businessDistrictId=%@netWork=wifi&device=MI+1SC&os=Android+4.1.2&osType=android",[[NSUserDefaults standardUserDefaults] valueForKey:@"cityId"],++ self.currentPage,self.channelid,self.idStr];
+            NSString *strUrl = [NSString stringWithFormat:kBusinessDetailDropUrl,[[NSUserDefaults standardUserDefaults] valueForKey:@"cityId"],++ self.currentPage,self.channelid,self.idStr];
             
             [[SearchDataManager sharedDataManager] requestDataWithListString:strUrl];
 
@@ -200,8 +244,8 @@ static NSString *const listCellID = @"listCell";
                 
                 [[SearchDataManager sharedDataManager].listArray removeAllObjects];
             }
-            
-            NSString *strUrl = [NSString stringWithFormat:@"http://www.molyo.com//mShop/getShopList?cityId=%@&longitude=116.34381300000000&latitude=40.03028800000000&pageSize=8&currentPage=1&channelId=%@categoryId=&sceneId=&districtId=&liveCircleId=&businessDistrictId=%@netWork=wifi&device=MI+1SC&os=Android+4.1.2&osType=android",[[NSUserDefaults standardUserDefaults] valueForKey:@"cityId"],self.channelid,self.idStr];
+
+            NSString *strUrl = [NSString stringWithFormat:kBusinessDetailPullUrl,[[NSUserDefaults standardUserDefaults] valueForKey:@"cityId"],self.channelid,self.categoryId,self.idStr];
                 [[SearchDataManager sharedDataManager] requestDataWithListString:strUrl];
           
             //刷新数据

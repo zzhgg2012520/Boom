@@ -45,15 +45,24 @@
 #import "HTHorizontalSelectionList.h"
 #import "JYSlideSegmentController.h"
 
+#import "City.h"
+#import "Two_dimensional_codeViewController.h"
+#import "ZBarSDK.h"
+#import "ZbarOverlayView.h"
+#import "WebViewController.h"
+
 
 #pragma mark -- Page_2
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 //Viewcontroller
 #import "SearchViewController.h"
+#import "MyAnnotation.h"
 #import "BusinessTableViewController.h"
 #import "SceneTableViewController.h"
 #import "GategoryViewController.h"
+#import "SearchBarTableViewController.h"
+#import "BeSearchedTableViewController.h"
 //Helper
 #import "SearchDataManager.h"
 //cell
@@ -61,6 +70,7 @@
 #import "ListCell.h"
 #import "BusinessCell.h"
 #import "GategoryCell.h"
+#import "HeaderCollectionReusableView.h"
 //model
 #import "List.h"
 #import "scene.h"

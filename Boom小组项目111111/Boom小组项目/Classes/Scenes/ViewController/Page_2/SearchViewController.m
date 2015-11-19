@@ -36,7 +36,7 @@ static NSString *const businessCellID = @"business";
 static NSString *const sceneCellID = @"scene";
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.title = @"查找";
 #pragma mark -- 布局导航条上的searchBar;  四个near,easy,food,all(button);  sceneCollectionView; businessTableView;
     [self addView];
     
@@ -60,7 +60,6 @@ static NSString *const sceneCellID = @"scene";
         [self.sceneCollectionView reloadData];
         [self.businessTableView reloadData];
     };
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -71,15 +70,13 @@ static NSString *const sceneCellID = @"scene";
 
 - (void)addView
 {
-#pragma mark -- searchBar
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, SCROLLWIDTH - 20, 44)];
-    _searchBar.tintColor = [UIColor clearColor];
-    _searchBar.placeholder = @"输入商圈，地点，商户名";
-    UIView *searchView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCROLLWIDTH, 44)];
-    _searchBar.barTintColor = [UIColor clearColor];
-    [searchView addSubview:_searchBar];
-    //self.navigationItem.titleView.frame = CGRectMake(-10, -10, SCROLLWIDTH, 44);
-    self.navigationItem.titleView = searchView;
+#pragma mark -- searchBarButton
+    UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCROLLWIDTH - 20, 44)];
+    [button addTarget:self action:@selector(button:) forControlEvents:UIControlEventTouchUpInside];
+    [button setImage:[UIImage imageNamed:@"search_pic"] forState:UIControlStateNormal];
+
+    button.backgroundColor = [UIColor clearColor];
+    self.navigationItem.titleView = button;
     
 #pragma mark -- scrollView
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.frame.size.height)];
@@ -166,14 +163,12 @@ static NSString *const sceneCellID = @"scene";
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return [[SearchDataManager sharedDataManager] allSceneArray].count;
-//    return self.scenePicArray.count;
 }
 
 #pragma mark -- request scenelist data
 - (void)requestSceneList
 {
     [[SearchDataManager sharedDataManager] requsetDataWithSceneString:[NSString stringWithFormat:kSceneListUrl, [[NSUserDefaults standardUserDefaults] valueForKey:@"cityId"]]];
-//    NSLog(@"%@",[[SearchDataManager shareDataManager]allSceneArray][1]);
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -194,6 +189,7 @@ static NSString *const sceneCellID = @"scene";
     self.hidesBottomBarWhenPushed = YES;
     SceneTableViewController *sceneTVC = [SceneTableViewController new];
     scene *scene = [[SearchDataManager sharedDataManager] allSceneArray][indexPath.row];
+    sceneTVC.qStr = @"&";
     sceneTVC.scene = scene;
     [self.navigationController pushViewController:sceneTVC animated:YES];
     self.hidesBottomBarWhenPushed = NO;
@@ -237,6 +233,8 @@ static NSString *const sceneCellID = @"scene";
     Business *business = [[SearchDataManager sharedDataManager] allBusinessArray][indexPath.row];
     businessTVC.idStr = [NSString stringWithFormat:@"%@&",business.idStr];
     businessTVC.channelid = @"&";
+    businessTVC.categoryId = @"&";
+    businessTVC.titleStr = @"商圈";
     [self.navigationController pushViewController:businessTVC animated:YES];
     self.hidesBottomBarWhenPushed = NO;
 }
@@ -248,6 +246,8 @@ static NSString *const sceneCellID = @"scene";
     BusinessTableViewController *businessTVC = [BusinessTableViewController new];
     businessTVC.idStr = @"&";
     businessTVC.channelid = @"&";
+    businessTVC.categoryId = @"&";
+    businessTVC.titleStr = @"附近";
     [self.navigationController pushViewController:businessTVC animated:YES];
     self.hidesBottomBarWhenPushed = NO;
 
@@ -260,6 +260,8 @@ static NSString *const sceneCellID = @"scene";
     BusinessTableViewController *businessTVC = [BusinessTableViewController new];
     businessTVC.idStr = @"&";
     businessTVC.channelid = @"tastebar&";
+    businessTVC.categoryId = @"&";
+    businessTVC.titleStr = @"休闲";
     [self.navigationController pushViewController:businessTVC animated:YES];
     self.hidesBottomBarWhenPushed = NO;
 
@@ -272,6 +274,8 @@ static NSString *const sceneCellID = @"scene";
     BusinessTableViewController *businessTVC = [BusinessTableViewController new];
     businessTVC.idStr = @"&";
     businessTVC.channelid = @"tongue&";
+    businessTVC.categoryId = @"&";
+    businessTVC.titleStr = @"美食";
     [self.navigationController pushViewController:businessTVC animated:YES];
     self.hidesBottomBarWhenPushed = NO;
 }
@@ -282,6 +286,15 @@ static NSString *const sceneCellID = @"scene";
     self.hidesBottomBarWhenPushed = YES;
     GategoryViewController *allTypeCVC = [GategoryViewController new];
     [self.navigationController pushViewController:allTypeCVC animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
+}
+
+#pragma mark -- searchButton
+- (void)button:(UIButton *)sender
+{
+    self.hidesBottomBarWhenPushed = YES;
+    SearchBarTableViewController *rootTVC = [SearchBarTableViewController new];
+    [self.navigationController pushViewController:rootTVC animated:YES];
     self.hidesBottomBarWhenPushed = NO;
 }
 

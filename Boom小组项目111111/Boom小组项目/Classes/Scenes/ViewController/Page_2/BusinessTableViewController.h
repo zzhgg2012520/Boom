@@ -13,5 +13,7 @@
 @property (nonatomic,strong) Business *business;
 @property (nonatomic,strong) NSString *idStr;
 @property (nonatomic,strong) NSString *channelid;
+@property (nonatomic,strong) NSString *categoryId;
+@property (nonatomic,strong) NSString * titleStr;
 
 @end
