@@ -15,6 +15,8 @@
 
 @property (nonatomic, assign) NSInteger currentPage;
 
+@property (nonatomic, strong) NSString *expID;
+
 @end
 
 @implementation NewestTableViewController
@@ -33,19 +35,13 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"ExpHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:@"expHID"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ExpFooterTableViewCell" bundle:nil] forCellReuseIdentifier:@"expFID"];
     
-    
     [self pullToLoadData];
+    [self dropToRefresh];
     
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    
-    [self dropToRefresh];
-    
 }
 
 #pragma mark - 解析数据
@@ -146,9 +142,18 @@
             
             Experience *e = self.allDataArray[indexPath.section];
             
-            [headerCell.userImgView sd_setImageWithURL:[NSURL URLWithString:e.userImg]];
-            headerCell.userNameLbl.text = e.userName;
-            headerCell.creatTimeLbl.text = e.createTime;
+            [headerCell.userNameBtn.imageView sd_setImageWithURL:[NSURL URLWithString:e.userImg] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+               
+                [headerCell.userImgBtn.imageView setImage:image];
+                
+            }];
+            
+            [headerCell.userNameBtn setTitle:e.userName forState:UIControlStateNormal];
+            [headerCell.userNameBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+            
+            NSRange range = NSMakeRange(5, 11);
+            NSString *cTime = [e.createTime substringWithRange:range];
+            headerCell.creatTimeLbl.text = cTime;
             
             break;
         }
@@ -178,7 +183,10 @@
             
             Experience *e = self.allDataArray[indexPath.section];
             
-            footerCell.shopNameLable.text = e.shopName;
+            [footerCell.shopNameBtn setTitle:e.shopName forState:UIControlStateNormal];
+            
+            [footerCell.shopNameBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+            
             footerCell.discussCountLbl.text = e.praiseCount;
             footerCell.collectCountLbl.text = e.resCount;
             
@@ -216,6 +224,31 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 8;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row) {
+        case 0:{
+            
+            
+            break;
+        }
+        case 1:{
+            
+            ExpDetailsTableViewController *EDTVC = [ExpDetailsTableViewController new];
+            
+            self.expID = EDTVC.expID;
+            
+            [self.navigationController pushViewController:EDTVC animated:YES];
+            break;
+        }
+        case 2:{
+            
+            
+            break;
+        }
+    }
 }
 
 /*

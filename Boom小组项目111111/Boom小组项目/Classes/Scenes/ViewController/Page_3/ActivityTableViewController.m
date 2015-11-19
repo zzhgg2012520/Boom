@@ -15,6 +15,8 @@
 
 @property (nonatomic, assign) NSInteger currentPage;
 
+@property (nonatomic, strong) NSString *actID;
+
 @end
 
 @implementation ActivityTableViewController
@@ -33,13 +35,8 @@
     
     //下拉加载
     [self pullToLoadData];
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    
     //上拉刷新
     [self dropToRefresh];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -140,6 +137,8 @@
     cell.actAdressLbl.text = a.address;
     cell.actTypeLbl.text = a.type;
     
+    self.actID = a.Id;
+    
     return cell;
 }
 
@@ -151,6 +150,15 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 8;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ActDetTableViewController *ADTVC = [ActDetTableViewController new];
+    
+    ADTVC.actID = self.actID;
+    
+    [self.navigationController pushViewController:ADTVC animated:YES];
 }
 
 /*
