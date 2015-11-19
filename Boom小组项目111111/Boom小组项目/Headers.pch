@@ -57,21 +57,31 @@
 #import "Business.h"
 
 
-
 #pragma mark -- Page_3
 #import "FindViewController.h"
 #import "ExperienceTableViewController.h"
 #import "ActivityTableViewController.h"
 #import "NewestTableViewController.h"
+#import "ExpDetailsTableViewController.h"
+#import "ActDetTableViewController.h"
 //cell
 #import "ExperienceTableViewCell.h"
 #import "ActivityTableViewCell.h"
 #import "ExpHeaderTableViewCell.h"
 #import "ExpFooterTableViewCell.h"
+#import "ExpDetHeader_2TableViewCell.h"
+#import "ExpDetHeader_3TableViewCell.h"
+#import "ExpDet_1TableViewCell.h"
+#import "ExpDetDisTableViewCell.h"
+#import "ActDetTableViewCell.h"
+#import "ActDetDisTableViewCell.h"
+#import "LunBoTuView.h"
 //model
 #import "Activity.h"
 #import "Experience.h"
 #import "Newest.h"
+#import "ExpDetails.h"
+
 
 #pragma mark -- Page_4
 #import "TabBarController.h"

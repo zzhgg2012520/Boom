@@ -15,6 +15,9 @@
 
 @property (nonatomic, assign) NSInteger currentPage;
 
+@property (nonatomic, strong) NSString *shopID;
+@property (nonatomic, strong) NSString *expID;
+
 @end
 
 @implementation ExperienceTableViewController
@@ -35,11 +38,6 @@
     
     
     [self pullToLoadData];
-    
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    
     [self dropToRefresh];
     
 }
@@ -146,9 +144,14 @@
             
             Experience *e = self.allDataArray[indexPath.section];
             
-            [headerCell.userImgView sd_setImageWithURL:[NSURL URLWithString:e.userImg]];
-            headerCell.userNameLbl.text = e.userName;
-            headerCell.creatTimeLbl.text = e.createTime;
+            [headerCell.userImgBtn.imageView sd_setImageWithURL:[NSURL URLWithString:e.userImg]];
+            
+            [headerCell.userNameBtn setTitle:e.userName forState:UIControlStateNormal];
+            [headerCell.userNameBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+            
+            NSRange range = NSMakeRange(5, 11);
+            NSString *cTime = [e.createTime substringWithRange:range];
+            headerCell.creatTimeLbl.text = cTime;
             
             break;
         }
@@ -178,9 +181,16 @@
             
             Experience *e = self.allDataArray[indexPath.section];
             
-            footerCell.shopNameLable.text = e.shopName;
+            [footerCell.shopNameBtn setTitle:e.shopName forState:UIControlStateNormal];
+            
+            [footerCell.shopNameBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+            
             footerCell.discussCountLbl.text = e.praiseCount;
             footerCell.collectCountLbl.text = e.resCount;
+            self.shopID = e.shopId;
+            self.expID = e.Id;
+            
+            [footerCell.shopNameBtn addTarget:self action:@selector(shopNameBtnAction:) forControlEvents:UIControlEventTouchUpInside];
             
             break;
         }
@@ -189,9 +199,19 @@
     return cell;
 }
 
+- (void)shopNameBtnAction:(UIButton *)sender
+{
+    
+    ListInfoTableViewController *LITVC = [ListInfoTableViewController new];
+    
+    LITVC.shopId = self.shopID;
+    
+    [self.navigationController pushViewController:LITVC animated:YES];
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    int height = 0;
+    CGFloat height = 0.0;
     
     switch (indexPath.row) {
         case 0:{
@@ -216,6 +236,30 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 8;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row) {
+        case 0:{
+            
+            break;
+        }
+        case 1:{
+            
+            ExpDetailsTableViewController *EDTVC = [ExpDetailsTableViewController new];
+            
+            EDTVC.expID = self.expID;
+            
+            [self.navigationController pushViewController:EDTVC animated:YES];
+            
+            break;
+        }
+        case 2:{
+            
+            break;
+        }
+    }
 }
 
 /*

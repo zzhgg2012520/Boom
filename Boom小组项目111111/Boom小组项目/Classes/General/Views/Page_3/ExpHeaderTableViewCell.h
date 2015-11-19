@@ -10,8 +10,8 @@
 
 @interface ExpHeaderTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *userImgView;
-@property (weak, nonatomic) IBOutlet UILabel *userNameLbl;
+@property (weak, nonatomic) IBOutlet UIButton *userImgBtn;
+@property (weak, nonatomic) IBOutlet UIButton *userNameBtn;
 @property (weak, nonatomic) IBOutlet UILabel *creatTimeLbl;
 
 @end

@@ -11,7 +11,7 @@
 @interface ExpFooterTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *place;
-@property (weak, nonatomic) IBOutlet UILabel *shopNameLable;
+@property (weak, nonatomic) IBOutlet UIButton *shopNameBtn;
 @property (weak, nonatomic) IBOutlet UILabel *discussCountLbl;
 @property (weak, nonatomic) IBOutlet UILabel *collectCountLbl;
 

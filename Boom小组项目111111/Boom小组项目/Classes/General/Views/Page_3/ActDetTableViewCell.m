@@ -1,14 +1,14 @@
 //
-//  ExpFooterTableViewCell.m
+//  ActDetTableViewCell.m
 //  Boom小组项目
 //
-//  Created by lanou3g on 15/11/13.
+//  Created by lanou3g on 15/11/18.
 //  Copyright © 2015年 仲勃翰. All rights reserved.
 //
 
-#import "ExpFooterTableViewCell.h"
+#import "ActDetTableViewCell.h"
 
-@implementation ExpFooterTableViewCell
+@implementation ActDetTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code
@@ -18,16 +18,6 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
-}
-
-- (IBAction)discussBtnAction:(id)sender
-{
-    
-}
-
-- (IBAction)collectBtnAction:(id)sender
-{
-    
 }
 
 @end

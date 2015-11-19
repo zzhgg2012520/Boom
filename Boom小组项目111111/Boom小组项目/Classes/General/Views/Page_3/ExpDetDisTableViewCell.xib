@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EDDID" rowHeight="70" id="KGk-i7-Jjw" customClass="ExpDetDisTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="69"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DxR-Ra-an9">
+                        <rect key="frame" x="8" y="8" width="27" height="27"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="DxR-Ra-an9" secondAttribute="height" multiplier="1:1" id="Ybe-b5-8yF"/>
+                            <constraint firstAttribute="width" constant="27" id="pwG-Gp-DvC"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pmt-Eo-mmW">
+                        <rect key="frame" x="43" y="8" width="42" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="wih-bx-Ypg"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gek-r5-hyq">
+                        <rect key="frame" x="364" y="8" width="42" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="6E2-2M-BMT"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wis-JF-sSH">
+                        <rect key="frame" x="43" y="31" width="363" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="topMargin" secondItem="DxR-Ra-an9" secondAttribute="top" id="EKI-Pu-Lqb"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="wis-JF-sSH" secondAttribute="trailing" id="Hip-Ks-nHf"/>
+                    <constraint firstItem="Pmt-Eo-mmW" firstAttribute="top" secondItem="DxR-Ra-an9" secondAttribute="top" id="Jjb-Lj-0Xs"/>
+                    <constraint firstAttribute="leadingMargin" secondItem="DxR-Ra-an9" secondAttribute="leading" id="T6c-Jj-VgT"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="gek-r5-hyq" secondAttribute="trailing" id="g5Q-bz-oyV"/>
+                    <constraint firstItem="Pmt-Eo-mmW" firstAttribute="leading" secondItem="DxR-Ra-an9" secondAttribute="trailing" constant="8" id="oi0-Qf-Nlx"/>
+                    <constraint firstItem="wis-JF-sSH" firstAttribute="leading" secondItem="Pmt-Eo-mmW" secondAttribute="trailing" constant="-42" id="qSL-bA-1zl"/>
+                    <constraint firstAttribute="topMargin" secondItem="gek-r5-hyq" secondAttribute="top" id="v4O-ng-q8m"/>
+                    <constraint firstItem="wis-JF-sSH" firstAttribute="leading" secondItem="DxR-Ra-an9" secondAttribute="trailing" constant="8" id="v7k-G8-i75"/>
+                    <constraint firstItem="wis-JF-sSH" firstAttribute="top" secondItem="Pmt-Eo-mmW" secondAttribute="bottom" constant="2" id="whd-IN-K3w"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="creatTimeLbl" destination="gek-r5-hyq" id="Yr1-rW-5pW"/>
+                <outlet property="disLbl" destination="wis-JF-sSH" id="cZU-nd-ceI"/>
+                <outlet property="userImgView" destination="DxR-Ra-an9" id="4Un-xn-F0Q"/>
+                <outlet property="userNameLbl" destination="Pmt-Eo-mmW" id="YJY-z0-Hsy"/>
+            </connections>
+            <point key="canvasLocation" x="32" y="327"/>
+        </tableViewCell>
+    </objects>
+</document>

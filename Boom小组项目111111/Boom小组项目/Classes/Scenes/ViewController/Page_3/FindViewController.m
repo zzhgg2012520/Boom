@@ -56,7 +56,7 @@
     
     // 设置scrollView的内容
     for (int i = 0; i < 3; i++) {
-        [self.ControllerArray[i] view].frame = CGRectMake(i * SCROLLWIDTH_3, 0, SCROLLWIDTH_3, SCROLLHEIGHT_3 - 64);
+        [self.ControllerArray[i] view].frame = CGRectMake(i * SCROLLWIDTH_3, 0, SCROLLWIDTH_3, SCROLLHEIGHT_3 - 113);
         [_scrollView addSubview:[self.ControllerArray[i] view]];
     }
     
@@ -87,7 +87,7 @@
     //点击切换控制器
     NSInteger num = _segmentedControl.selectedSegmentIndex;
     
-    _scrollView.contentOffset = CGPointMake(self.view.frame.size.width * num,-64);
+    _scrollView.contentOffset = CGPointMake(self.view.frame.size.width * num,0);
 }
 
 #pragma mark - 重写----scrollViewDelegate中的代理方法 实现滑动
