@@ -39,7 +39,7 @@
     
     UIView * blackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,  self.imgView.frame.size.width, self.imgView.frame.size.height)];
 #pragma mark 添加灰度，使背景变暗，文字清晰
-    blackView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.2];
+    blackView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.3];
     [self.imgView addSubview:blackView];
     
     // 主标题

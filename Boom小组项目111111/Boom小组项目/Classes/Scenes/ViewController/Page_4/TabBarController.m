@@ -31,7 +31,8 @@
     [self addFirstPage];
     [self addSecondPage];
     [self addThirdPage];
-
+    [self addForthPage];
+    
 }
 
 // 首页
@@ -85,6 +86,23 @@
     // tabBar图片
     findNC.tabBarItem.image = [UIImage imageNamed:@""];
     findNC.tabBarItem.selectedImage = [UIImage imageNamed:@""];
+    
+}
+
+- (void)addForthPage{
+    
+    MineTableViewController * mineTVC = [MineTableViewController new];
+    UINavigationController * mineNC = [[UINavigationController alloc] initWithRootViewController:mineTVC];
+    [self addChildViewController:mineNC];
+    
+    // 设置navigationBar
+    [self setupNavigationBarWithNC:mineNC];
+    
+    // tabBar标题
+    mineNC.tabBarItem.title = @"我";
+    // tabBar图片
+    mineNC.tabBarItem.image = [UIImage imageNamed:@""];
+    mineNC.tabBarItem.selectedImage = [UIImage imageNamed:@""];
     
 }
 

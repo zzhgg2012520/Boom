@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) NSMutableArray * firstCellArray;
 @property (nonatomic, strong) NSMutableArray * secondCellArray;
+@property (nonatomic, assign) BOOL selected;
 
 @end
 
@@ -23,10 +24,79 @@
     // tableView的属性设置
     [self setUpTableView];
     
+    // 数据解析
+    [self requestData];
+    
+    // 自定义titleView
+    [self customTitleView];
+    
+    // 收藏按钮
+    [self addRightBarButtonItem];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:self.subId] isEqualToString:self.subId]) {
+        self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"sign_stared"];
+        self.selected = YES;
+    }else{
+        self.selected = NO;
+    }
+    
+}
+
+// 数据解析
+- (void)requestData{
+    
     NSString * string = [NSString stringWithFormat:URL_FirstPageList, self.subId];
     [self requsetDataForFirstCellWithString:string];
     [self requsetDataForSecondCellWithString:string];
     
+}
+
+// 自定义titleView
+- (void)customTitleView{
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200,44)];
+    label.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:20];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = self.subjectList.title;
+    label.textColor = [UIColor whiteColor];
+    self.navigationItem.titleView = label;
+    self.navigationItem.titleView.hidden = YES;
+    
+}
+
+// 标题动态渐变显示
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    if (scrollView.contentOffset.y > 65) {
+        self.navigationItem.titleView.hidden = NO;
+        self.navigationItem.titleView.alpha  =  (scrollView.contentOffset.y  - 65 )/ 85;
+    }else{
+        self.navigationItem.titleView.hidden = YES;
+    }
+    
+}
+
+// 收藏按钮
+- (void)addRightBarButtonItem{
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"sign_star"] style:UIBarButtonItemStyleDone target:self action:@selector(collect:)];
+    
+}
+
+// 收藏事件
+- (void)collect:(UIBarButtonItem *)sender{
+
+    if (self.selected) {
+        sender.image = [UIImage imageNamed:@"sign_star"];
+        
+    }else{
+        sender.image = [UIImage imageNamed:@"sign_stared"];
+    }
+    self.selected = !self.selected;
 }
 
 // tableView的属性设置
@@ -137,7 +207,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+
     // 跳转
     self.hidesBottomBarWhenPushed = YES;
     ModelForContents * model = self.secondCellArray[indexPath.row];

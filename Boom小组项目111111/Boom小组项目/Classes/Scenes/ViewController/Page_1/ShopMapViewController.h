@@ -1,17 +1,15 @@
 //
-//  ShopInfoTableViewController.h
+//  ShopMapViewController.h
 //  Boom小组项目
 //
-//  Created by lanou3g on 15/11/13.
+//  Created by lanou3g on 15/11/16.
 //  Copyright © 2015年 仲勃翰. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ShopInfoTableViewController : UITableViewController
+@interface ShopMapViewController : UIViewController
 
 @property (nonatomic, strong) ItemInfoDescrModel * descrModel;
-
-@property (nonatomic, strong) NSString * string;
 
 @end

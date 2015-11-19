@@ -19,13 +19,12 @@ YALContextMenuTableViewDelegate
 
 @property (nonatomic, strong) YALContextMenuTableView* contextMenuTableView;
 
-//@property (nonatomic, strong) NSMutableArray *menuTitles;
-//@property (nonatomic, strong) NSMutableArray *menuIcons;
 @property (nonatomic, strong) NSArray *menuTitles;
 @property (nonatomic, strong) NSArray *menuIcons;
 @property (nonatomic ,strong) UIBarButtonItem * rightItem;
 @property (nonatomic, strong) NSMutableArray * allData;
 @property (nonatomic, assign) NSInteger currentPage;
+@property (nonatomic, assign) NSInteger temp;
 
 @end
 
@@ -40,7 +39,6 @@ YALContextMenuTableViewDelegate
     self.currentPage = 1;
     
     [self initiateMenuOptions];
-//    [self requestCityDataWithString:@"http://www.molyo.com//mArea/getCityListV1_7?enableFlag=1"];
     
     // 自定义rightBarButtonItem
     self.rightItem = [[UIBarButtonItem alloc] initWithTitle:[[NSUserDefaults standardUserDefaults] valueForKey:@"cityName"] style:UIBarButtonItemStyleDone target:self action:@selector(rightButton:)];
@@ -49,7 +47,7 @@ YALContextMenuTableViewDelegate
     
     // title
     self.navigationItem.title = @"多啦";
-    
+
     // 去掉cell横线
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
@@ -66,21 +64,25 @@ YALContextMenuTableViewDelegate
     __weak __typeof(self) weakSelf = self;
     self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
-        // 模拟延迟加载数据
+        // 模拟延迟加强用户体验
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [weakSelf.tableView reloadData];
-#warning 上拉加载之后再下拉刷新会少一个页面
+
             // 清空数组
             [self.allData removeAllObjects];
+            self.currentPage = 1;
             
             // 数据解析
             [self requestDataWithString:[NSString stringWithFormat:@"http://www.molyo.com//mIndex/getInfoV1_7?cityId=%@&pageSize=8&currentPage=1&netWork=wifi", [[NSUserDefaults standardUserDefaults] valueForKey:@"cityId"]]];
             
+            self.temp = self.allData.count;
+            
             [self.tableView reloadData];
-            // 结束刷新
             [weakSelf.tableView.header endRefreshing];
+            
+            // 恢复数据加载状态
+            [weakSelf.tableView.footer resetNoMoreData];
         });
-        
     }];
     [self.tableView.header beginRefreshing];
 
@@ -90,8 +92,9 @@ YALContextMenuTableViewDelegate
 - (void)pullToLoadData{
     
     __weak __typeof(self) weakSelf = self;
-    self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+    self.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         
+        // 模拟延迟加强用户体验
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [weakSelf.tableView reloadData];
   
@@ -100,12 +103,30 @@ YALContextMenuTableViewDelegate
             [self.tableView reloadData];
             
             [weakSelf.tableView.footer endRefreshing];
-    
+            
+            // 提示没有更多数据
+            if (self.temp == self.allData.count) {
+                // 进入加载完成所有数据状态
+                [weakSelf.tableView.footer endRefreshingWithNoMoreData];
+            }else{
+                self.temp = self.allData.count;
+            }
         });
-        
     }];
-#warning 刷新后消失
-    self.tableView.footer.hidden = YES;
+    
+}
+
+// 数据解析
+- (void)requestDataWithString:(NSString *)string{
+    
+    NSURLRequest * request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:string]];
+    NSData * data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+    for (NSDictionary * dic in dict[@"body"][@"subjectList"]){
+        SubjectList * model = [SubjectList new];
+        [model setValuesForKeysWithDictionary:dic];
+        [self.allData addObject:model];
+    }
     [self.tableView reloadData];
     
 }
@@ -156,6 +177,7 @@ YALContextMenuTableViewDelegate
 }
 
 - (void)initiateMenuOptions {
+    
     self.menuTitles = @[@"",
                         @"广州",
                         @"杭州",
@@ -171,19 +193,6 @@ YALContextMenuTableViewDelegate
 //                       [UIImage imageNamed:@"shanghai1"]];
     
 }
-
-//- (void)requestCityDataWithString:(NSString *)string{
-//    
-//    NSURLRequest * request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:string]];
-//    NSData * data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-//    NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-//    for (NSDictionary * dic in dict[@"body"][@"list"]){
-//        City * model = [City new];
-//        [model setValuesForKeysWithDictionary:dic];
-//        [self.menuTitles addObject:model.name];
-//    }
-//    
-//}
 
 #pragma mark - YALContextMenuTableViewDelegate
 
@@ -284,21 +293,6 @@ YALContextMenuTableViewDelegate
     }
 }
 
-// 数据解析
-- (void)requestDataWithString:(NSString *)string{
-    
-    NSURLRequest * request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:string]];
-    NSData * data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-    for (NSDictionary * dic in dict[@"body"][@"subjectList"]){
-        SubjectList * model = [SubjectList new];
-        [model setValuesForKeysWithDictionary:dic];
-        [self.allData addObject:model];
-    }
-    [self.tableView reloadData];
-    
-}
-
 // cell 点击事件
 - (void)tableView:(YALContextMenuTableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -316,6 +310,7 @@ YALContextMenuTableViewDelegate
         FirstPageListTableViewController
         * firstPageListTVC = [FirstPageListTableViewController new];
         firstPageListTVC.subId = subjectList.subId;
+        firstPageListTVC.subjectList = subjectList;
         [self.navigationController pushViewController:firstPageListTVC animated:YES];
         self.hidesBottomBarWhenPushed = NO;
         
@@ -383,21 +378,5 @@ YALContextMenuTableViewDelegate
     return _allData;
     
 }
-
-//- (NSMutableArray *)menuTitles{
-//    
-//    if (!_menuTitles) {
-//        self.menuTitles = [NSMutableArray array];
-//    }
-//    return _menuTitles;
-//}
-//
-//- (NSMutableArray *)menuIcons{
-//    
-//    if (!_menuIcons) {
-//        self.menuIcons = [NSMutableArray array];
-//    }
-//    return _menuIcons;
-//}
 
 @end

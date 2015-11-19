@@ -10,13 +10,13 @@
 #define URL_h
 
 // 首页的url通过cityId改变
-#define URL_FirstPageList @"http://www.molyo.com//mSubject/getInfoV1_7?id=%@&accessToken=1511121739438060a35c78781365b08a&netWork=wifi&device=m2+note&os=Android+5.1&osType=android"
+#define URL_FirstPageList @"http://www.molyo.com//mSubject/getInfoV1_7?id=%@&accessToken=&netWork=wifi&device=m2+note&os=Android+5.1&osType=android"
 
 // 首页点击后的分类，根据subId改变
-#define URL_ForWebView @"http://www.molyo.com/mShop/tip/info?shopId=%@&accessToken=1511121739438060a35c78781365b08a&hasTip=1&netWork=wifi&netWork=wifi"
+#define URL_ForWebView @"http://www.molyo.com/mShop/tip/info?shopId=%@&accessToken=&hasTip=1&netWork=wifi&netWork=wifi"
 // http://www.molyo.com/mShop/tip/info?shopId=150212103203312396413d34b157280b&accessToken=1511121739438060a35c78781365b08a&hasTip=1&netWork=wifi&netWork=wifi
 
-#define URL_ForDescr @"http://www.molyo.com//mShop/getInfoV1_7?id=%@&accessToken=1511121739438060a35c78781365b08a&netWork=wifi&device=m2+note&os=Android+5.1&osType=android"
+#define URL_ForDescr @"http://www.molyo.com//mShop/getInfoV1_7?id=%@&accessToken=&netWork=wifi&device=m2+note&os=Android+5.1&osType=android"
 // http://www.molyo.com//mShop/getInfoV1_7?id=150212103203312396413d34b157280b&accessToken=1511121739438060a35c78781365b08a&netWork=wifi&device=m2+note&os=Android+5.1&osType=android
 
 #endif /* URL_h */

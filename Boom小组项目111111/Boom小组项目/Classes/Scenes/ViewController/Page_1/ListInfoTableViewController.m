@@ -18,6 +18,8 @@
 
 @property (nonatomic, strong) NSMutableArray * scrollViewArray;
 
+@property (nonatomic, strong) NSString * string;
+
 @end
 
 @implementation ListInfoTableViewController
@@ -57,12 +59,13 @@
 
     self.tableView.showsVerticalScrollIndicator = NO;
     
-    NSString * string = [NSString stringWithFormat:URL_ForDescr, self.shopId];
-    [self requestDataForScrollViewWithString:string];
-    [self requestDataForDescrWithString:string];
+    self.string = [NSString stringWithFormat:URL_ForDescr, self.shopId];
+    [self requestDataForScrollViewWithString:self.string];
+    [self requestDataForDescrWithString:self.string];
     
 }
 
+#warning 应该把轮播图放在header里的，不然header的最小高度是1
 // 解析轮播图图片
 - (void)requestDataForScrollViewWithString:(NSString *)string{
     
@@ -76,7 +79,7 @@
     }
 
 }
-#warning 线程问题
+
 // 解析
 - (void)requestDataForDescrWithString:(NSString *)string{
     
@@ -173,6 +176,7 @@
                     [cell addSubview:label];
                     
                 }
+                cell.userInteractionEnabled = NO;
                 return cell;
             }
             
@@ -261,10 +265,13 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     self.navigationController.hidesBottomBarWhenPushed = YES;
     ShopInfoTableViewController * shopInfoTVC = [ShopInfoTableViewController new];
+    shopInfoTVC.descrModel = self.descrModel;
+    shopInfoTVC.string = self.string;
     [self.navigationController pushViewController:shopInfoTVC animated:YES];
     
 }
 
+// 懒加载
 -(NSMutableArray *)scrollViewArray{
     
     if (!_scrollViewArray) {

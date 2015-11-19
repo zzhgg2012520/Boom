@@ -55,7 +55,7 @@
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
     
-    NSLog(@"轮播图%ld", (long)index);
+  
     
 }
 
