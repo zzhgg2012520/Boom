@@ -91,10 +91,26 @@
 - (void)collect:(UIBarButtonItem *)sender{
 
     if (self.selected) {
-        sender.image = [UIImage imageNamed:@"sign_star"];
         
+        // 如果已被收藏
+        sender.image = [UIImage imageNamed:@"sign_star"];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:self.subId];
     }else{
+        
+        // 如果未被收藏
         sender.image = [UIImage imageNamed:@"sign_stared"];
+        [[NSUserDefaults standardUserDefaults] setValue:self.subId forKey:self.subId];
+        
+        //coreData
+        NSEntityDescription * description = [NSEntityDescription entityForName:@"SubjectList" inManagedObjectContext:[ShopDataManager shareDataManager].myObjectContext];
+        // 创建一个student对象
+        SubjectListToPull * subjectListToPull = [[SubjectListToPull alloc] initWithEntity:description insertIntoManagedObjectContext:[ShopDataManager shareDataManager].myObjectContext];
+        subjectListToPull.subId = self.subjectList.subId;
+        subjectListToPull.title = self.subjectList.title;
+        subjectListToPull.subTitle = self.subjectList.subTitle;
+        subjectListToPull.img = self.subjectList.img;
+        [[ShopDataManager shareDataManager].appDelegate saveContext];
+        
     }
     self.selected = !self.selected;
 }
