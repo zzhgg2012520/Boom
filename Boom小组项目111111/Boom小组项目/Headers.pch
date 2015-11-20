@@ -111,6 +111,7 @@
 #pragma mark -- Page_4
 #import "TabBarController.h"
 #import "MineTableViewController.h"
-
+#import "LoginViewController.h"
+#import "RegisterViewController.h"
 
 #endif /* Headers_pch */

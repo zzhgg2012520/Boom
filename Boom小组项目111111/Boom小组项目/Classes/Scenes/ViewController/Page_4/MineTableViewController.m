@@ -215,7 +215,11 @@
             break;
         case 2:
         {
-            
+            self.hidesBottomBarWhenPushed = YES;
+            LoginViewController * loginVC = [LoginViewController new];
+            [self presentViewController:loginVC animated:YES completion:nil];
+//            [self.navigationController pushViewController:loginVC animated:YES];
+            self.hidesBottomBarWhenPushed = NO;
         }
             break;
         default:
