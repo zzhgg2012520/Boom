@@ -160,8 +160,6 @@ YALContextMenuTableViewDelegate
     
 }
 
-
-
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
     //should be called after rotation animation completed
     [self.contextMenuTableView reloadData];
@@ -195,17 +193,16 @@ YALContextMenuTableViewDelegate
                         @"深圳",
                         @"厦门"];
     
-//    self.menuIcons = @[[UIImage imageNamed:@"shanghai1"],
-//                       [UIImage imageNamed:@"shanghai1"],
-//                       [UIImage imageNamed:@"shanghai1"],
-//                       [UIImage imageNamed:@"shanghai1"],
-//                       [UIImage imageNamed:@"shanghai1"],
-//                       [UIImage imageNamed:@"shanghai1"]];
+    self.menuIcons = @[[UIImage imageNamed:@"xiamen"],
+                       [UIImage imageNamed:@"guangzhou"],
+                       [UIImage imageNamed:@"qita"],
+                       [UIImage imageNamed:@"shanghai"],
+                       [UIImage imageNamed:@"shenzhen"],
+                       [UIImage imageNamed:@"hangzhou"]];
     
 }
 
 #pragma mark - YALContextMenuTableViewDelegate
-
 - (void)contextMenuTableView:(YALContextMenuTableView *)contextMenuTableView didDismissWithIndexPath:(NSIndexPath *)indexPath{
 
     switch (indexPath.row) {

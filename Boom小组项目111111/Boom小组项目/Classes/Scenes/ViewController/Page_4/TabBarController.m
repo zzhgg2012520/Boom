@@ -48,8 +48,8 @@
     // tabBar标题
     firstPageNC.tabBarItem.title = @"首页";
     // tabBar图片
-    firstPageNC.tabBarItem.image = [UIImage imageNamed:@""];
-    firstPageNC.tabBarItem.selectedImage = [UIImage imageNamed:@""];
+    firstPageNC.tabBarItem.image = [UIImage imageNamed:@"main_tab_home"];
+    firstPageNC.tabBarItem.selectedImage = [[UIImage imageNamed:@"main_tab_home_checked"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
 }
 
@@ -66,8 +66,8 @@
     // tabBar标题
     searchNC.tabBarItem.title = @"查找";
     // tabBar图片
-    searchNC.tabBarItem.image = [UIImage imageNamed:@""];
-    searchNC.tabBarItem.selectedImage = [UIImage imageNamed:@""];
+    searchNC.tabBarItem.image = [UIImage imageNamed:@"main_tab_search"];
+    searchNC.tabBarItem.selectedImage = [[UIImage imageNamed:@"main_tab_search_checked"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
 }
 
@@ -84,8 +84,8 @@
     // tabBar标题
     findNC.tabBarItem.title = @"发现";
     // tabBar图片
-    findNC.tabBarItem.image = [UIImage imageNamed:@""];
-    findNC.tabBarItem.selectedImage = [UIImage imageNamed:@""];
+    findNC.tabBarItem.image = [UIImage imageNamed:@"main_tab_discover"];
+    findNC.tabBarItem.selectedImage = [[UIImage imageNamed:@"main_tab_discover_checked"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
 }
 
@@ -101,8 +101,8 @@
     // tabBar标题
     mineNC.tabBarItem.title = @"我";
     // tabBar图片
-    mineNC.tabBarItem.image = [UIImage imageNamed:@""];
-    mineNC.tabBarItem.selectedImage = [UIImage imageNamed:@""];
+    mineNC.tabBarItem.image = [UIImage imageNamed:@"main_tab_my"];
+    mineNC.tabBarItem.selectedImage = [[UIImage imageNamed:@"main_tab_my_checked"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
 }
 
