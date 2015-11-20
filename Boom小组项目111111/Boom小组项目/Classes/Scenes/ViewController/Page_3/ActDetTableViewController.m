@@ -16,6 +16,11 @@
 
 @property (nonatomic, assign) CGFloat lblHeight;
 
+@property (nonatomic, strong) NSString *latitude;
+@property (nonatomic, strong) NSString *longitude;
+@property (nonatomic, strong) NSString *sponsorName;
+@property (nonatomic, strong) NSString *address;
+
 @end
 
 @implementation ActDetTableViewController
@@ -88,6 +93,7 @@
             ActDetTableViewCell *ADTCell = [tableView dequeueReusableCellWithIdentifier:@"ADTID" forIndexPath:indexPath];
             cell = ADTCell;
             
+            ADTCell.selectionStyle = UITableViewCellSelectionStyleNone;
             Activity *a = self.allDataArray[indexPath.row];
             
             ADTCell.actDetTitleLbl.text = a.title;
@@ -98,12 +104,21 @@
             ADTCell.actDetTypeLbl.text = a.type;
             ADTCell.actDetSponsorLbl.text = a.sponsorName;
             
+            self.latitude = a.latitude;
+            self.longitude = a.longitude;
+            self.sponsorName = a.sponsorName;
+            self.address = a.address;
+            
+            [ADTCell.shopAddressBtn addTarget:self action:@selector(shopAddressBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+            
             break;
         }
         case 1:{
             
             ActDetDisTableViewCell *ADDCell = [tableView dequeueReusableCellWithIdentifier:@"ADDID" forIndexPath:indexPath];
             cell = ADDCell;
+            
+            ADDCell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             Activity *a = self.allDataArray[0];
             
@@ -117,6 +132,20 @@
     return cell;
 }
 
+- (void)shopAddressBtnAction:(UIButton *)sender
+{
+    
+    ShopMapViewController *SMVC = [ShopMapViewController new];
+    
+    SMVC.latitude = self.latitude;
+    SMVC.longitude = self.longitude;
+    SMVC.name = self.sponsorName;
+    SMVC.address = self.address;
+    
+    [self.navigationController pushViewController:SMVC animated:YES];
+    
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -124,7 +153,7 @@
     switch (indexPath.row) {
         case 0:{
             
-            height = 300;
+            height = 320;
             break;
         }
         case 1:{

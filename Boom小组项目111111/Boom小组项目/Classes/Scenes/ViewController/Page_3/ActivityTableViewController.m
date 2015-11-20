@@ -137,8 +137,6 @@
     cell.actAdressLbl.text = a.address;
     cell.actTypeLbl.text = a.type;
     
-    self.actID = a.Id;
-    
     return cell;
 }
 
@@ -156,7 +154,10 @@
 {
     ActDetTableViewController *ADTVC = [ActDetTableViewController new];
     
-    ADTVC.actID = self.actID;
+    Activity *a = self.allDataArray[indexPath.section];
+    
+    ADTVC.actID = a.Id;
+    
     
     [self.navigationController pushViewController:ADTVC animated:YES];
 }

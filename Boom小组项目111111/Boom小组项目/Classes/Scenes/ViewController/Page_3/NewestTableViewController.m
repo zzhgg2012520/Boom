@@ -16,6 +16,7 @@
 @property (nonatomic, assign) NSInteger currentPage;
 
 @property (nonatomic, strong) NSString *expID;
+@property (nonatomic, strong) NSString *shopID;
 
 @end
 
@@ -144,7 +145,7 @@
             
             [headerCell.userNameBtn.imageView sd_setImageWithURL:[NSURL URLWithString:e.userImg] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                
-                [headerCell.userImgBtn.imageView setImage:image];
+                [headerCell.userImgView setImage:image];
                 
             }];
             
@@ -186,15 +187,28 @@
             [footerCell.shopNameBtn setTitle:e.shopName forState:UIControlStateNormal];
             
             [footerCell.shopNameBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+            self.shopID = e.shopId;
             
             footerCell.discussCountLbl.text = e.praiseCount;
             footerCell.collectCountLbl.text = e.resCount;
+            
+            [footerCell.shopNameBtn addTarget:self action:@selector(shopNameBtnAction:) forControlEvents:UIControlEventTouchUpInside];
             
             break;
         }
     }
     
     return cell;
+}
+
+- (void)shopNameBtnAction:(UIButton *)sender
+{
+    
+    ListInfoTableViewController *LITVC = [ListInfoTableViewController new];
+    
+    LITVC.shopId = self.shopID;
+    
+    [self.navigationController pushViewController:LITVC animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

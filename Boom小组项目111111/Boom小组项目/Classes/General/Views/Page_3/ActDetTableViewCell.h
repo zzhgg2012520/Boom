@@ -17,5 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *actDetCostLbl;
 @property (weak, nonatomic) IBOutlet UILabel *actDetTypeLbl;
 @property (weak, nonatomic) IBOutlet UILabel *actDetSponsorLbl;
+@property (weak, nonatomic) IBOutlet UIButton *shopAddressBtn;
 
 @end

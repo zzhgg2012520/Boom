@@ -36,6 +36,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"ExpDetHeader_3TableViewCell" bundle:nil] forCellReuseIdentifier:@"ExpDetH_3"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ExpDet_1TableViewCell" bundle:nil] forCellReuseIdentifier:@"ExpDet_1"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ExpDetDisTableViewCell" bundle:nil] forCellReuseIdentifier:@"EDDID"];
+    [self.tableView registerClass:[LunBoTuView class] forHeaderFooterViewReuseIdentifier:@"LBTV"];
     
     NSString * url_string = [NSString stringWithFormat:@"http://www.molyo.com//mExperience/getInfo?id=%@&accessToken=1511161452277577954b2bec4045110d&device=m2&os=Android+5.1&osType=android&netWork=wifi",self.expID];
     
@@ -60,7 +61,6 @@
        
         ExpDetails *model = [ExpDetails new];
         [model setValuesForKeysWithDictionary:dict[@"body"]];
-        self.allDataArray = [NSMutableArray arrayWithCapacity:40];
         [self.allDataArray addObject:model];
        
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -95,9 +95,13 @@
         case 0:{
             if (indexPath.row == 0) {
                 
-                ExpDetHeader_2TableViewCell *edh_2 = [tableView dequeueReusableCellWithIdentifier:@"ExpDetH_2" forIndexPath:indexPath];                cell = edh_2;
+                ExpDetHeader_2TableViewCell *edh_2 = [tableView dequeueReusableCellWithIdentifier:@"ExpDetH_2" forIndexPath:indexPath];
+                cell = edh_2;
                 
-                Experience *e = self.allDataArray[indexPath.row];
+                ExpDetails *e = [ExpDetails new];
+                if (self.allDataArray.count > 0) {
+                    e = [self.allDataArray objectAtIndex:indexPath.row];
+                }
                 
                 [edh_2.userImgView sd_setImageWithURL:[NSURL URLWithString:e.userImg]];
                 edh_2.userNameLbl.text = e.userName;
@@ -106,16 +110,20 @@
                 NSString *cTime = [e.createTime substringWithRange:range];
                 edh_2.creatTimeLbl.text = cTime;
                 edh_2.shopNameLbl.text = e.shopName;
-                
+                break;
             } else {
                 
                 ExpDetHeader_3TableViewCell *edh_3 = [tableView dequeueReusableCellWithIdentifier:@"ExpDetH_3" forIndexPath:indexPath];
                 cell = edh_3;
                 
-                Experience *e = self.allDataArray[indexPath.row];
+                ExpDetails *e = [ExpDetails new];
+
+                if (self.allDataArray.count > 0) {
+                    e = self.allDataArray[0];
+                }
                 
                 edh_3.desLbl.text = e.desc;
-                
+                break;
             }
             break;
         }
@@ -131,7 +139,10 @@
                 ExpDetDisTableViewCell *expDetDis = [tableView dequeueReusableCellWithIdentifier:@"EDDID" forIndexPath:indexPath];
                 cell = expDetDis;
                 
-                Experience *e = self.allDataArray[indexPath.row];
+                ExpDetails *e = [ExpDetails new];
+                if (self.allDataArray.count > 0) {
+                    e = self.allDataArray[0];
+                }
                 [expDetDis.userImgView sd_setImageWithURL:[NSURL URLWithString:e.userImg]];
                 expDetDis.userNameLbl.text = e.userName;
                 
@@ -153,6 +164,7 @@
     
     switch (section) {
         case 0:{
+            UITableViewHeaderFooterView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"LBTV"];
             
             LunBoTuView *LBTVC = [LunBoTuView new];
             
@@ -160,7 +172,7 @@
             
             [LBTVC setArray:e.imgs];
             
-            [view addSubview:LBTVC];
+            view = LBTVC;
             
             break;
         }
@@ -225,6 +237,14 @@
             break;
     }
     return height;
+}
+
+- (NSMutableArray *)allDataArray
+{
+    if (_allDataArray == nil) {
+        self.allDataArray = [NSMutableArray array];
+    }
+    return _allDataArray;
 }
 
 /*

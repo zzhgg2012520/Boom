@@ -10,4 +10,17 @@
 
 @implementation ExpDetails
 
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    
+}
+
+- (NSMutableArray *)imgs
+{
+    if (_imgs == nil) {
+        self.imgs = [NSMutableArray array];
+    }
+    return _imgs;
+}
+
 @end

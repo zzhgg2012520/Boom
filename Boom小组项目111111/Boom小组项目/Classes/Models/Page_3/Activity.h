@@ -28,4 +28,7 @@
 @property (nonatomic, strong) NSString *sponsorType;
 @property (nonatomic, strong) NSDictionary *times;
 
+@property (nonatomic, strong) NSString *latitude;
+@property (nonatomic, strong) NSString *longitude;
+
 @end

@@ -30,7 +30,7 @@
             <connections>
                 <outlet property="actDetDisLbl" destination="Xgv-8S-Nrs" id="zcJ-3V-sjw"/>
             </connections>
-            <point key="canvasLocation" x="384" y="138"/>
+            <point key="canvasLocation" x="420" y="352"/>
         </tableViewCell>
     </objects>
 </document>

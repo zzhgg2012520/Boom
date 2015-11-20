@@ -25,14 +25,14 @@
     _mapView.mapType = 0;
     
     //坐标
-    CGFloat longitude = [self.descrModel.longitude floatValue];
-    CGFloat latitude = [self.descrModel.latitude floatValue];
+    CGFloat longitude = [self.longitude floatValue];
+    CGFloat latitude = [self.latitude floatValue];
     CLLocationCoordinate2D location=CLLocationCoordinate2DMake(latitude, longitude);
     
     // 大头针
     MKPointAnnotation * annotation=[[MKPointAnnotation alloc]init];
-    annotation.title = self.descrModel.name;
-    annotation.subtitle = self.descrModel.address;
+    annotation.title = self.name;
+    annotation.subtitle = self.address;
     annotation.coordinate = location;
     [_mapView addAnnotation:annotation];
     [_mapView selectAnnotation:annotation animated:YES];//标题和子标题自动显示

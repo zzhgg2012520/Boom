@@ -144,7 +144,7 @@
             
             Experience *e = self.allDataArray[indexPath.section];
             
-            [headerCell.userImgBtn.imageView sd_setImageWithURL:[NSURL URLWithString:e.userImg]];
+            [headerCell.userImgView sd_setImageWithURL:[NSURL URLWithString:e.userImg]];
             
             [headerCell.userNameBtn setTitle:e.userName forState:UIControlStateNormal];
             [headerCell.userNameBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];

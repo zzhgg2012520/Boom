@@ -70,7 +70,11 @@
 - (void)tapAction{
     
     ShopMapViewController * shopMapVC = [ShopMapViewController new];
-    shopMapVC.descrModel = self.descrModel;
+    shopMapVC.name = self.descrModel.name;
+    shopMapVC.address = self.descrModel.address;
+    shopMapVC.longitude = self.descrModel.longitude;
+    shopMapVC.latitude = self.descrModel.latitude;
+    
     [self.navigationController pushViewController:shopMapVC animated:YES];
     
 }
@@ -222,9 +226,7 @@
     
     if (indexPath.row == 0) {
         
-        ShopMapViewController * shopMapVC = [ShopMapViewController new];
-        shopMapVC.descrModel = self.descrModel;
-        [self.navigationController pushViewController:shopMapVC animated:YES];
+        [self tapAction];
         
     }
     

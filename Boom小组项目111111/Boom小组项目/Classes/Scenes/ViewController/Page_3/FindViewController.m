@@ -64,9 +64,14 @@
     
     //设置segmentedControl的标题
     self.segmentedControl = [[UISegmentedControl alloc]initWithItems:@[@"体验",@"活动",@"最新"]];
-    _segmentedControl.frame = CGRectMake(-8, 0, SCROLLWIDTH_3, 44);
-    _segmentedControl.backgroundColor = [UIColor blackColor];
-    _segmentedControl.tintColor = [UIColor whiteColor];
+    _segmentedControl.frame = CGRectMake(-12, 0, SCROLLWIDTH_3 + 8, 44);
+    
+//    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCROLLHEIGHT_3 + 8, 2)];
+//    view.backgroundColor = [UIColor blackColor];
+//    [self.segmentedControl addSubview:view];
+    
+    _segmentedControl.backgroundColor = [UIColor whiteColor];
+    _segmentedControl.tintColor = [UIColor blackColor];
     
     //设置默认显示的控制器
     _segmentedControl.selectedSegmentIndex = 0;

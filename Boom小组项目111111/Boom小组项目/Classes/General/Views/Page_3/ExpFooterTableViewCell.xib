@@ -110,7 +110,7 @@
                 <outlet property="place" destination="ean-8s-sdp" id="axP-gj-kc8"/>
                 <outlet property="shopNameBtn" destination="3uj-9g-Puq" id="WF9-5l-5yo"/>
             </connections>
-            <point key="canvasLocation" x="576" y="512.5"/>
+            <point key="canvasLocation" x="-6" y="278.5"/>
         </tableViewCell>
     </objects>
     <resources>
