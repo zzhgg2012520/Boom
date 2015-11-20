@@ -189,7 +189,7 @@ static NSString *const reuseID = @"annotaion";
 //地图键切换界面
 - (void)mapAction:(UIBarButtonItem *)sender
 {
-    if (self.mapSwitch == YES) {
+    if (self.mapSwitch) {
         //cellbutton
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_list_mode"] style:UIBarButtonItemStylePlain target:self action:@selector(mapAction:)];
 
