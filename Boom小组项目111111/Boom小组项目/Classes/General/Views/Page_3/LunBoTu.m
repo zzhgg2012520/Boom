@@ -1,20 +1,20 @@
 //
-//  LunBoTuView.m
+//  LunBoTu.m
 //  Boom小组项目
 //
-//  Created by lanou3g on 15/11/19.
+//  Created by lanou3g on 15/11/20.
 //  Copyright © 2015年 仲勃翰. All rights reserved.
 //
 
-#import "LunBoTuView.h"
+#import "LunBoTu.h"
 
-@interface LunBoTuView () <SDCycleScrollViewDelegate>
+@interface LunBoTu () <SDCycleScrollViewDelegate>
 
 @property (nonatomic, strong) SDCycleScrollView * cycleScrollView;
 
 @end
 
-@implementation LunBoTuView
+@implementation LunBoTu
 
 - (instancetype) initWithFrame:(CGRect)frame
 {
@@ -52,5 +52,6 @@
 {
     NSLog(@"-----");
 }
+
 
 @end

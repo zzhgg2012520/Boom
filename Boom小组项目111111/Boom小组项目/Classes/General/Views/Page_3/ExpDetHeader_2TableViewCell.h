@@ -13,6 +13,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *userImgView;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLbl;
 @property (weak, nonatomic) IBOutlet UILabel *creatTimeLbl;
-@property (weak, nonatomic) IBOutlet UILabel *shopNameLbl;
+@property (weak, nonatomic) IBOutlet UIButton *shopNameBtn;
 
 @end

@@ -187,6 +187,7 @@
             [footerCell.shopNameBtn setTitle:e.shopName forState:UIControlStateNormal];
             
             [footerCell.shopNameBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+            
             self.shopID = e.shopId;
             
             footerCell.discussCountLbl.text = e.praiseCount;
@@ -252,7 +253,9 @@
             
             ExpDetailsTableViewController *EDTVC = [ExpDetailsTableViewController new];
             
-            self.expID = EDTVC.expID;
+            Experience *e = self.allDataArray[indexPath.section];
+            
+            EDTVC.expID = e.Id;
             
             [self.navigationController pushViewController:EDTVC animated:YES];
             break;

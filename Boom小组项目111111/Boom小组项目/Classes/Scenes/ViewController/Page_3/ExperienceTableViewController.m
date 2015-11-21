@@ -187,8 +187,8 @@
             
             footerCell.discussCountLbl.text = e.praiseCount;
             footerCell.collectCountLbl.text = e.resCount;
+            
             self.shopID = e.shopId;
-            self.expID = e.Id;
             
             [footerCell.shopNameBtn addTarget:self action:@selector(shopNameBtnAction:) forControlEvents:UIControlEventTouchUpInside];
             
@@ -249,7 +249,9 @@
             
             ExpDetailsTableViewController *EDTVC = [ExpDetailsTableViewController new];
             
-            EDTVC.expID = self.expID;
+            Experience *e = self.allDataArray[indexPath.section];
+            
+            EDTVC.expID = e.Id;
             
             [self.navigationController pushViewController:EDTVC animated:YES];
             

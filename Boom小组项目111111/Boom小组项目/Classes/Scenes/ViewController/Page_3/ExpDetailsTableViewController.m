@@ -11,10 +11,13 @@
 @interface ExpDetailsTableViewController () <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *allDataArray;
+@property (nonatomic, strong) NSMutableArray *allDataArray_1;
 
 @property (nonatomic, strong) UITableView *ExpDetailsTableView;
 
 @property (nonatomic, assign) NSInteger currentPage;
+
+@property (nonatomic, strong) NSString *shopID;
 
 @end
 
@@ -36,11 +39,15 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"ExpDetHeader_3TableViewCell" bundle:nil] forCellReuseIdentifier:@"ExpDetH_3"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ExpDet_1TableViewCell" bundle:nil] forCellReuseIdentifier:@"ExpDet_1"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ExpDetDisTableViewCell" bundle:nil] forCellReuseIdentifier:@"EDDID"];
-    [self.tableView registerClass:[LunBoTuView class] forHeaderFooterViewReuseIdentifier:@"LBTV"];
+    [self.tableView registerClass:[LunBoTu class] forHeaderFooterViewReuseIdentifier:@"LBT"];
     
     NSString * url_string = [NSString stringWithFormat:@"http://www.molyo.com//mExperience/getInfo?id=%@&accessToken=1511161452277577954b2bec4045110d&device=m2&os=Android+5.1&osType=android&netWork=wifi",self.expID];
     
     [self requestDataWithListString:url_string];
+    
+    NSString *url_string_1 = [NSString stringWithFormat:@"http://www.molyo.com//mExperience/response/getList?businessId=1511091034030384b762df65e6afc21c&pageSize=8&currentPage=1&accessToken=1511191544322133a1c0da24dee728fa"];
+    
+    [self requestDataWithListString_1:url_string_1];
     
 }
 
@@ -71,6 +78,27 @@
     [task resume];
 }
 
+- (void)requestDataWithListString_1:(NSString *)string
+{
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:string]] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        
+        Discuss *model = [Discuss new];
+        for (NSDictionary *dic in dict[@"body"][@"list"]) {
+            [model setValuesForKeysWithDictionary:dic];
+            [self.allDataArray_1 addObject:model];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    }];
+    
+    [task resume];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -83,7 +111,7 @@
     if (section == 0) {
         return 2;
     } else {
-        return 10;
+        return self.allDataArray_1.count + 1;
     }
 }
 
@@ -93,9 +121,11 @@
     
     switch (indexPath.section) {
         case 0:{
+            
             if (indexPath.row == 0) {
                 
                 ExpDetHeader_2TableViewCell *edh_2 = [tableView dequeueReusableCellWithIdentifier:@"ExpDetH_2" forIndexPath:indexPath];
+                
                 cell = edh_2;
                 
                 ExpDetails *e = [ExpDetails new];
@@ -109,7 +139,13 @@
                 NSRange range = NSMakeRange(5, 11);
                 NSString *cTime = [e.createTime substringWithRange:range];
                 edh_2.creatTimeLbl.text = cTime;
-                edh_2.shopNameLbl.text = e.shopName;
+                [edh_2.shopNameBtn setTitle:e.shopName forState:UIControlStateNormal];
+                [edh_2.shopNameBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+                
+                self.shopID = e.shopId;
+                
+                [edh_2.shopNameBtn addTarget:self action:@selector(shopNameBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+                
                 break;
             } else {
                 
@@ -123,6 +159,7 @@
                 }
                 
                 edh_3.desLbl.text = e.desc;
+                
                 break;
             }
             break;
@@ -139,23 +176,37 @@
                 ExpDetDisTableViewCell *expDetDis = [tableView dequeueReusableCellWithIdentifier:@"EDDID" forIndexPath:indexPath];
                 cell = expDetDis;
                 
-                ExpDetails *e = [ExpDetails new];
-                if (self.allDataArray.count > 0) {
-                    e = self.allDataArray[0];
+                Discuss *d = [Discuss new];
+                if (self.allDataArray_1.count > 0) {
+                    d = self.allDataArray_1[0];
                 }
-                [expDetDis.userImgView sd_setImageWithURL:[NSURL URLWithString:e.userImg]];
-                expDetDis.userNameLbl.text = e.userName;
+                [expDetDis.userImgView sd_setImageWithURL:[NSURL URLWithString:d.userImg]];
+                expDetDis.userNameLbl.text = d.userName;
                 
                 NSRange range = NSMakeRange(5, 11);
-                NSString *cTime = [e.createTime substringWithRange:range];
+                NSString *cTime = [d.createTime substringWithRange:range];
                 expDetDis.creatTimeLbl.text = cTime;
+                expDetDis.disLbl.text = d.desc;
             }
             break;
         }
         default:
             break;
     }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     return cell;
+}
+
+- (void)shopNameBtnAction:(UIButton *)sender
+{
+    ListInfoTableViewController *LITVC = [ListInfoTableViewController new];
+    
+    LITVC.shopId = self.shopID;
+    
+    [self.navigationController pushViewController:LITVC animated:YES];
+
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -164,15 +215,17 @@
     
     switch (section) {
         case 0:{
-            UITableViewHeaderFooterView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"LBTV"];
             
-            LunBoTuView *LBTVC = [LunBoTuView new];
+            LunBoTu *LBTV = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"LBT"];
             
-            ExpDetails *e = self.allDataArray[section];
+            ExpDetails *e = [ExpDetails new];
+            if (self.allDataArray.count > 0) {
+                e = [self.allDataArray objectAtIndex:section];
+            }
             
-            [LBTVC setArray:e.imgs];
+            [LBTV setArray:e.imgs];
             
-            view = LBTVC;
+            view = LBTV;
             
             break;
         }
@@ -245,6 +298,15 @@
         self.allDataArray = [NSMutableArray array];
     }
     return _allDataArray;
+}
+
+- (NSMutableArray *)allDataArray_1{
+    
+    if (_allDataArray_1 == nil) {
+        self.allDataArray_1 = [NSMutableArray array];
+    }
+    return _allDataArray_1;
+    
 }
 
 /*

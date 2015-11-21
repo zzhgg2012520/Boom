@@ -95,12 +95,13 @@
 #import "ExpDetDisTableViewCell.h"
 #import "ActDetTableViewCell.h"
 #import "ActDetDisTableViewCell.h"
-#import "LunBoTuView.h"
+#import "LunBoTu.h"
 //model
 #import "Activity.h"
 #import "Experience.h"
 #import "Newest.h"
 #import "ExpDetails.h"
+#import "Discuss.h"
 
 
 

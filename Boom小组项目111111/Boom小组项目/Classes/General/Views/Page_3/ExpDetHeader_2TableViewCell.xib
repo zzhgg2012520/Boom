@@ -24,12 +24,6 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4bS-Kf-qjq">
-                        <rect key="frame" x="174" y="46" width="216" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sign_address.png" translatesAutoresizingMaskIntoConstraints="NO" id="vCN-4M-Nrc">
                         <rect key="frame" x="157" y="48" width="12" height="12"/>
                         <constraints>
@@ -58,16 +52,23 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="18c-z4-JV2">
+                        <rect key="frame" x="177" y="41" width="213" height="27"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                        <state key="normal" title="Button">
+                            <color key="titleColor" red="0.16862745098039217" green="0.54117647058823526" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Dhc-e2-9Mj" firstAttribute="leading" secondItem="ueV-8t-yeh" secondAttribute="trailing" constant="5" id="2YU-xU-pja"/>
                     <constraint firstItem="9Sl-km-NOW" firstAttribute="leading" secondItem="ueV-8t-yeh" secondAttribute="trailing" constant="5" id="2jc-Fg-Oqu"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="4bS-Kf-qjq" secondAttribute="trailing" constant="30" id="5Yt-9H-mbD"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="18c-z4-JV2" secondAttribute="trailing" constant="30" id="6NV-nD-5aI"/>
+                    <constraint firstItem="18c-z4-JV2" firstAttribute="centerY" secondItem="vCN-4M-Nrc" secondAttribute="centerY" id="78F-Qs-eYY"/>
                     <constraint firstAttribute="topMargin" secondItem="ueV-8t-yeh" secondAttribute="top" id="8aI-Nt-5bE"/>
                     <constraint firstItem="vCN-4M-Nrc" firstAttribute="centerY" secondItem="Dhc-e2-9Mj" secondAttribute="centerY" id="BNo-6E-cPp"/>
                     <constraint firstItem="Dhc-e2-9Mj" firstAttribute="bottom" secondItem="ueV-8t-yeh" secondAttribute="bottom" id="Bcm-Lj-dQs"/>
-                    <constraint firstItem="4bS-Kf-qjq" firstAttribute="leading" secondItem="vCN-4M-Nrc" secondAttribute="trailing" constant="5" id="PAa-Xv-Wr1"/>
-                    <constraint firstItem="4bS-Kf-qjq" firstAttribute="centerY" secondItem="vCN-4M-Nrc" secondAttribute="centerY" id="SQo-Pr-Iiu"/>
+                    <constraint firstItem="18c-z4-JV2" firstAttribute="leading" secondItem="vCN-4M-Nrc" secondAttribute="trailing" constant="8" id="MWh-G4-U6b"/>
                     <constraint firstAttribute="bottomMargin" secondItem="ueV-8t-yeh" secondAttribute="bottom" id="Sqj-5J-xwc"/>
                     <constraint firstItem="9Sl-km-NOW" firstAttribute="top" secondItem="ueV-8t-yeh" secondAttribute="top" id="Wmz-jJ-EyM"/>
                     <constraint firstItem="vCN-4M-Nrc" firstAttribute="leading" secondItem="Dhc-e2-9Mj" secondAttribute="trailing" constant="10" id="Yl1-JT-aMg"/>
@@ -76,7 +77,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="creatTimeLbl" destination="Dhc-e2-9Mj" id="VIq-Zi-leh"/>
-                <outlet property="shopNameLbl" destination="4bS-Kf-qjq" id="ESt-RX-aXj"/>
+                <outlet property="shopNameBtn" destination="18c-z4-JV2" id="LUe-TW-e5y"/>
                 <outlet property="userImgView" destination="ueV-8t-yeh" id="O0e-2G-ZPb"/>
                 <outlet property="userNameLbl" destination="9Sl-km-NOW" id="UUj-dg-QoK"/>
             </connections>
