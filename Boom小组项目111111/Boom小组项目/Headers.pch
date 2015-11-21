@@ -115,5 +115,6 @@
 #import "MineTableViewController.h"
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
+#import "ForgetViewController.h"
 
 #endif /* Headers_pch */

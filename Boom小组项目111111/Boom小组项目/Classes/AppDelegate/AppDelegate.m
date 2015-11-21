@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <AVOSCloud/AVOSCloud.h>
 
 @interface AppDelegate ()
 
@@ -36,6 +37,12 @@
     }else{
         NSLog(@"不是第一次启动");
     }
+    
+    
+    //leanCloud
+    //如果使用美国站点，请加上这行代码 [AVOSCloud useAVCloudUS];
+    [AVOSCloud setApplicationId:@"HCvzWF0XCueDw8g6elPN2Vuc"
+                      clientKey:@"STCPSQalBaUFFnzRAIxEvhD1"];
     
     return YES;
 }
