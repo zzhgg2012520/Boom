@@ -37,6 +37,9 @@
     self.backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 150)];
     [self addSubview:self.backImageView];
     
+    
+    
+    
     // 毛玻璃
     UIVisualEffectView *visualView  = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
     visualView.frame = self.backImageView.frame;
@@ -51,6 +54,11 @@
     self.titleLabel.highlighted = YES;
     [visualView addSubview:self.titleLabel];
     
+    // 横线
+    UIImageView * lineImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.backImageView.frame.size.width / 2 - 75, self.backImageView.frame.size.height / 2 - 3, 150, 6)];
+    lineImage.image = [UIImage imageNamed:@"中间的横线"];
+    [visualView addSubview:lineImage];
+    
     // 子标题
     self.subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.backImageView.frame.size.height / 2, self.backImageView.frame.size.width, 40)];
     self.subTitleLabel.textAlignment = NSTextAlignmentCenter;
@@ -61,7 +69,6 @@
     
     // 简介
     self.descrLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, self.backImageView.frame.size.height + 15, self.backImageView.frame.size.width - 30, 0)];
-//    self.descrLabel.textColor = [UIColor blackColor];
     self.descrLabel.numberOfLines = 0;
     [self addSubview:self.descrLabel];
     

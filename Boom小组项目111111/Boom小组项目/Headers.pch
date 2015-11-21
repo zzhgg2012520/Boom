@@ -16,11 +16,14 @@
 #import "URL.h"
 
 #pragma mark -- Page_1
+#import <CoreData/CoreData.h>
 // model
 #import "SubjectList.h"
 #import "ItemInfoDescrModel.h"
 #import "ScrollViewModel.h"
 #import "City.h"
+#import "Collect_Type_Model.h"
+#import "ShopTime.h"
 // view
 #import "FirstPageTableViewCell.h"
 #import "ContextMenuCell.h"
@@ -30,6 +33,7 @@
 #import "FirstItemInfoCell.h"
 #import "ItemInfoDescrCell.h"
 // controller
+#import "AppDelegate.h"
 #import "FirstPageTableViewController.h"
 #import "FirstPageListTableViewController.h"
 #import "ListInfoTableViewController.h"
@@ -44,12 +48,13 @@
 #import "SDCycleScrollView.h"
 #import "HTHorizontalSelectionList.h"
 #import "JYSlideSegmentController.h"
+#import "ShopDataManager.h"
 
-#import "City.h"
 #import "Two_dimensional_codeViewController.h"
 #import "ZBarSDK.h"
 #import "ZbarOverlayView.h"
 #import "WebViewController.h"
+
 
 
 #pragma mark -- Page_2
@@ -108,6 +113,7 @@
 #pragma mark -- Page_4
 #import "TabBarController.h"
 #import "MineTableViewController.h"
-
+#import "LoginViewController.h"
+#import "RegisterViewController.h"
 
 #endif /* Headers_pch */

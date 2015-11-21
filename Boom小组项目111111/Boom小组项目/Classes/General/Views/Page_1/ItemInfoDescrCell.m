@@ -24,14 +24,16 @@
 - (void)addAllViews{
 
     
-    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, [UIScreen mainScreen].bounds.size.width, 40)];
+    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, [UIScreen mainScreen].bounds.size.width, 40)];
     self.nameLabel.font = [UIFont systemFontOfSize:20];
     [self addSubview:self.nameLabel];
     
-    self.addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.nameLabel.frame.origin.x, self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height, 300, 30)];
+    self.addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.nameLabel.frame.origin.x, 35, 300, 30)];
+    self.addressLabel.textColor = [UIColor grayColor];
     [self addSubview:self.addressLabel];
     
-    self.praceLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.addressLabel.frame.origin.x, self.addressLabel.frame.origin.y + self.addressLabel.frame.size.height, 200, 30)];
+    self.praceLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.addressLabel.frame.origin.x, 60, 200, 30)];
+    self.praceLabel.textColor = [UIColor grayColor];
     [self addSubview:self.praceLabel];
     
 }

@@ -132,49 +132,65 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 2;
+    return 3;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.row == 0) {
-        
-        static NSString * cellID = @"我的收藏";
-        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
+    switch (indexPath.row) {
+        case 0:
+        {
+            static NSString * cellID = @"我的收藏";
+            UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
+            }
+            
+            UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, 40)];
+            label.text = @"我的收藏";
+            [cell addSubview:label];
+            
+            return cell;
         }
-        
-        UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, 40)];
-        label.text = @"我的收藏";
-        [cell addSubview:label];
-        
-        return cell;
-        
-    }else{
-        
-        static NSString * cellID = @"我的活动";
-        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
+            break;
+        case 1:
+        {
+            static NSString * cellID = @"我的活动";
+            UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
+            }
+            
+            UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, 40)];
+            label.text = @"我的活动";
+            [cell addSubview:label];
+            
+            return cell;
+            break;
         }
-        
-        UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, 40)];
-        label.text = @"我的活动";
-        [cell addSubview:label];
-        
-        return cell;
-        
+        case 2:
+        {
+            static NSString * cellID = @"3";
+            UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
+            }
+            
+            return cell;
+            break;
+        }
+        default:
+            break;
     }
     
-//    static NSString * cellID = @"没用的cell";
-//    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-//    if (!cell) {
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
-//    }
-//    
-//    return cell;
+    static NSString * cellID = @"没用的cell";
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
+    }
+    
+    return cell;
     
 }
 
@@ -183,17 +199,32 @@
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.row == 0) {
-        
-        
-        
-        self.hidesBottomBarWhenPushed = YES;
-        CollectViewController * collectVC = [CollectViewController new];
-        [self.navigationController pushViewController:collectVC animated:YES];
-        self.hidesBottomBarWhenPushed = NO;
-        
+    switch (indexPath.row) {
+        case 0:
+        {
+            self.hidesBottomBarWhenPushed = YES;
+            CollectViewController * collectVC = [CollectViewController new];
+            [self.navigationController pushViewController:collectVC animated:YES];
+            self.hidesBottomBarWhenPushed = NO;
+        }
+            break;
+        case 1:
+        {
+            
+        }
+            break;
+        case 2:
+        {
+            self.hidesBottomBarWhenPushed = YES;
+            LoginViewController * loginVC = [LoginViewController new];
+            [self presentViewController:loginVC animated:YES completion:nil];
+//            [self.navigationController pushViewController:loginVC animated:YES];
+            self.hidesBottomBarWhenPushed = NO;
+        }
+            break;
+        default:
+            break;
     }
-    
     
 }
 

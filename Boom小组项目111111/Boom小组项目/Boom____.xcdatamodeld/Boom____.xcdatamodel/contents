@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="14F27" minimumToolsVersion="Automatic">
-    <elements/>
+    <entity name="Collect_Type_Model" representedClassName="Collect_Type_Model" syncable="YES">
+        <attribute name="img" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Collect_Type_Model" positionX="-54" positionY="-9" width="128" height="105"/>
+    </elements>
 </model>

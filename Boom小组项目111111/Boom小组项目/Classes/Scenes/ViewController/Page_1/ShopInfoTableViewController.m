@@ -104,6 +104,7 @@
                 
                 UILabel * addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 0, 250, 40)];
                 addressLabel.text = [NSString stringWithFormat:@"%@ %@", self.descrModel.area, self.descrModel.address];
+#warning 想在一行label里显示2行数据
                 addressLabel.numberOfLines = 0;
                 [cell addSubview:addressLabel];
                 
@@ -199,8 +200,16 @@
                 NSURLRequest * request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:self.string]];
                 NSData * data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
                 NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-                timeLabel.text = [NSString stringWithFormat:@"%@至%@ %@", dict[@"body"][@"openTimes"][0][@"startDate"], dict[@"body"][@"openTimes"][0][@"endDate"],   dict[@"body"][@"openTimes"][0][@"time"]];
+                // 判断是否有营业时间信息
+                NSArray * array = [NSArray array];
+                array = dict[@"body"][@"openTimes"];
+                if (array != nil && ![array isKindOfClass:[NSNull class]] && array.count != 0) {
+                    timeLabel.text = [NSString stringWithFormat:@"%@至%@ %@", dict[@"body"][@"openTimes"][0][@"startDate"], dict[@"body"][@"openTimes"][0][@"endDate"],   dict[@"body"][@"openTimes"][0][@"time"]];
+                }else{
+                    timeLabel.text = @"暂无营业时间信息";
+                }
                 
+
             }
             return cell;
             break;
