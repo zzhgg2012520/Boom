@@ -1,5 +1,5 @@
 //
-//  SubjectListToPull+CoreDataProperties.h
+//  Collect_Type_Model+CoreDataProperties.h
 //  Boom小组项目
 //
 //  Created by lanou3g on 15/11/20.
@@ -9,16 +9,16 @@
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "SubjectListToPull.h"
+#import "Collect_Type_Model.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SubjectListToPull (CoreDataProperties)
+@interface Collect_Type_Model (CoreDataProperties)
 
-@property (nullable, nonatomic, retain) NSString *subId;
 @property (nullable, nonatomic, retain) NSString *title;
 @property (nullable, nonatomic, retain) NSString *subTitle;
 @property (nullable, nonatomic, retain) NSString *img;
+@property (nullable, nonatomic, retain) NSString *subId;
 
 @end
 

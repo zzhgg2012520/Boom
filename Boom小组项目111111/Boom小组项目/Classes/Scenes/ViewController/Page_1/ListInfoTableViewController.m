@@ -65,7 +65,6 @@
     
 }
 
-#warning 应该把轮播图放在header里的，不然header的最小高度是1
 // 解析轮播图图片
 - (void)requestDataForScrollViewWithString:(NSString *)string{
     
@@ -225,7 +224,7 @@
             if (indexPath.row == 0) {
                 return 220;
             }else{
-                return 115;
+                return 95;
             }
             break;
         }

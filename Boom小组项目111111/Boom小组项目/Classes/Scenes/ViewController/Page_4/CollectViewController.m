@@ -35,9 +35,11 @@
     
     // 页面
     ThemeForCollectTableViewController * themeTVC = [ThemeForCollectTableViewController new];
-    themeTVC.view.frame = CGRectMake([UIScreen mainScreen].bounds.size.width, 0, self.scrollView.frame.size.width, self.scrollView.frame.size.height);
+    themeTVC.view.frame = CGRectMake(0, 0, self.scrollView.frame.size.width, self.scrollView.frame.size.height);
     [self.scrollView addSubview:themeTVC.view];
     [self addChildViewController:themeTVC];
+    
+    self.hidesBottomBarWhenPushed = YES;
     
 }
 
@@ -63,8 +65,8 @@
     self.selectionList.delegate = self;
     self.selectionList.dataSource = self;
     
-    self.carMakes = @[@"商户",
-                      @"专题",
+    self.carMakes = @[@"专题",
+                      @"商户",
                       @"体验"];
     [self.view addSubview:self.selectionList];
 

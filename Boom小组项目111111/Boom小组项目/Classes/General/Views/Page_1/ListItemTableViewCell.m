@@ -37,12 +37,12 @@
     self.backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10,  [UIScreen mainScreen].bounds.size.width - 20, 200)];
     [self addSubview:self.backImageView];
     
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.backImageView.frame.origin.x, self.backImageView.frame.origin.y + self.backImageView.frame.size.height, self.backImageView.frame.size.width, 40)];
-#warning 这个字体要换更好看的
-    self.titleLabel.font = [UIFont systemFontOfSize:20];
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, self.backImageView.frame.origin.y + self.backImageView.frame.size.height, self.backImageView.frame.size.width, 40)];
+    self.titleLabel.font = [UIFont systemFontOfSize:18];
     [self addSubview:self.titleLabel];
     
-    self.descrLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.backImageView.frame.origin.x, self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height - 2, self.backImageView.frame.size.width, 0)];
+    self.descrLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height - 2, self.backImageView.frame.size.width, 0)];
+    self.descrLabel.textColor = [UIColor grayColor];
     self.descrLabel.numberOfLines = 0;
     [self addSubview:self.descrLabel];
     

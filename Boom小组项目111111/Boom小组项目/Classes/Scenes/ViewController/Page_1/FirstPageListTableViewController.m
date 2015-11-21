@@ -12,7 +12,6 @@
 
 @property (nonatomic, strong) NSMutableArray * firstCellArray;
 @property (nonatomic, strong) NSMutableArray * secondCellArray;
-@property (nonatomic, assign) BOOL selected;
 
 @end
 
@@ -32,18 +31,18 @@
     
     // 收藏按钮
     [self addRightBarButtonItem];
-    
+
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:self.subId] isEqualToString:self.subId]) {
+
+    // 如果已被收藏
+    ModelForListCell * model = self.firstCellArray[0];
+    if ([[ShopDataManager shareDataManager] getCollectWithTitle:model.title] != nil){
+        
         self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"sign_stared"];
-        self.selected = YES;
-    }else{
-        self.selected = NO;
     }
-    
+
 }
 
 // 数据解析
@@ -61,7 +60,8 @@
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200,44)];
     label.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:20];
     label.textAlignment = NSTextAlignmentCenter;
-    label.text = self.subjectList.title;
+    ModelForListCell * model = self.firstCellArray[0];
+    label.text = model.title;
     label.textColor = [UIColor whiteColor];
     self.navigationItem.titleView = label;
     self.navigationItem.titleView.hidden = YES;
@@ -90,29 +90,19 @@
 // 收藏事件
 - (void)collect:(UIBarButtonItem *)sender{
 
-    if (self.selected) {
-        
-        // 如果已被收藏
-        sender.image = [UIImage imageNamed:@"sign_star"];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:self.subId];
-    }else{
+    ModelForListCell * model = self.firstCellArray[0];
+    if ([[ShopDataManager shareDataManager] getCollectWithTitle:model.title] == nil) {
         
         // 如果未被收藏
         sender.image = [UIImage imageNamed:@"sign_stared"];
-        [[NSUserDefaults standardUserDefaults] setValue:self.subId forKey:self.subId];
+        [[ShopDataManager shareDataManager] addCollectTitle:model.title subTitle:model.subTitle img:model.image subId:self.subId];
+    }else{
         
-        //coreData
-        NSEntityDescription * description = [NSEntityDescription entityForName:@"SubjectList" inManagedObjectContext:[ShopDataManager shareDataManager].myObjectContext];
-        // 创建一个student对象
-        SubjectListToPull * subjectListToPull = [[SubjectListToPull alloc] initWithEntity:description insertIntoManagedObjectContext:[ShopDataManager shareDataManager].myObjectContext];
-        subjectListToPull.subId = self.subjectList.subId;
-        subjectListToPull.title = self.subjectList.title;
-        subjectListToPull.subTitle = self.subjectList.subTitle;
-        subjectListToPull.img = self.subjectList.img;
-        [[ShopDataManager shareDataManager].appDelegate saveContext];
-        
+        // 如果已被收藏
+        sender.image = [UIImage imageNamed:@"sign_star"];
+        [[ShopDataManager shareDataManager] deleteCollectWithTitle:model.title];
     }
-    self.selected = !self.selected;
+    
 }
 
 // tableView的属性设置

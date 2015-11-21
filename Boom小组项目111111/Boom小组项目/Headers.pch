@@ -22,7 +22,8 @@
 #import "ItemInfoDescrModel.h"
 #import "ScrollViewModel.h"
 #import "City.h"
-#import "SubjectListToPull.h"
+#import "Collect_Type_Model.h"
+#import "ShopTime.h"
 // view
 #import "FirstPageTableViewCell.h"
 #import "ContextMenuCell.h"
@@ -32,6 +33,7 @@
 #import "FirstItemInfoCell.h"
 #import "ItemInfoDescrCell.h"
 // controller
+#import "AppDelegate.h"
 #import "FirstPageTableViewController.h"
 #import "FirstPageListTableViewController.h"
 #import "ListInfoTableViewController.h"
@@ -48,12 +50,11 @@
 #import "JYSlideSegmentController.h"
 #import "ShopDataManager.h"
 
-#import "City.h"
 #import "Two_dimensional_codeViewController.h"
 #import "ZBarSDK.h"
 #import "ZbarOverlayView.h"
 #import "WebViewController.h"
-#import "AppDelegate.h"
+
 
 
 #pragma mark -- Page_2

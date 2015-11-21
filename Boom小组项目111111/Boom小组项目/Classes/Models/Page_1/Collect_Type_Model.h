@@ -1,5 +1,5 @@
 //
-//  SubjectListToPull.h
+//  Collect_Type_Model.h
 //  Boom小组项目
 //
 //  Created by lanou3g on 15/11/20.
@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SubjectListToPull : NSManagedObject
+@interface Collect_Type_Model : NSManagedObject
 
 // Insert code here to declare functionality of your managed object subclass
 
@@ -19,4 +19,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_ASSUME_NONNULL_END
 
-#import "SubjectListToPull+CoreDataProperties.h"
+#import "Collect_Type_Model+CoreDataProperties.h"

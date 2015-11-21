@@ -1,5 +1,5 @@
 //
-//  SubjectListToPull+CoreDataProperties.m
+//  Collect_Type_Model+CoreDataProperties.m
 //  Boom小组项目
 //
 //  Created by lanou3g on 15/11/20.
@@ -9,13 +9,13 @@
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "SubjectListToPull+CoreDataProperties.h"
+#import "Collect_Type_Model+CoreDataProperties.h"
 
-@implementation SubjectListToPull (CoreDataProperties)
+@implementation Collect_Type_Model (CoreDataProperties)
 
-@dynamic subId;
 @dynamic title;
 @dynamic subTitle;
 @dynamic img;
+@dynamic subId;
 
 @end

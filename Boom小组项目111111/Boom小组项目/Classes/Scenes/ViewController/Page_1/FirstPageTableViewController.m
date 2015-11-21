@@ -193,12 +193,12 @@ YALContextMenuTableViewDelegate
                         @"深圳",
                         @"厦门"];
     
-    self.menuIcons = @[[UIImage imageNamed:@"xiamen"],
-                       [UIImage imageNamed:@"guangzhou"],
+    self.menuIcons = @[[UIImage imageNamed:@"关闭2"],
                        [UIImage imageNamed:@"qita"],
+                       [UIImage imageNamed:@"hangzhou"],
                        [UIImage imageNamed:@"shanghai"],
                        [UIImage imageNamed:@"shenzhen"],
-                       [UIImage imageNamed:@"hangzhou"]];
+                       [UIImage imageNamed:@"guangzhou"]];
     
 }
 
