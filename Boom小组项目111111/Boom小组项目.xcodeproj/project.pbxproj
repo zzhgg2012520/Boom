@@ -24,9 +24,9 @@
 		C22A90781BFDA0A100F343C4 /* JYSlideSegmentController.m in Sources */ = {isa = PBXBuildFile; fileRef = C22A90771BFDA0A100F343C4 /* JYSlideSegmentController.m */; settings = {ASSET_TAGS = (); }; };
 		C22B16B91C000F170006A8A7 /* verify.png in Resources */ = {isa = PBXBuildFile; fileRef = C22B16B81C000F170006A8A7 /* verify.png */; settings = {ASSET_TAGS = (); }; };
 		C22B16BB1C000F300006A8A7 /* goback.png in Resources */ = {isa = PBXBuildFile; fileRef = C22B16BA1C000F300006A8A7 /* goback.png */; settings = {ASSET_TAGS = (); }; };
-		C22B16BF1C000F6D0006A8A7 /* login.png in Resources */ = {isa = PBXBuildFile; fileRef = C22B16BE1C000F6D0006A8A7 /* login.png */; settings = {ASSET_TAGS = (); }; };
 		C22B16C11C000FA10006A8A7 /* forgivePassword.png in Resources */ = {isa = PBXBuildFile; fileRef = C22B16C01C000FA10006A8A7 /* forgivePassword.png */; settings = {ASSET_TAGS = (); }; };
 		C22B16C31C00100F0006A8A7 /* register.png in Resources */ = {isa = PBXBuildFile; fileRef = C22B16C21C00100F0006A8A7 /* register.png */; settings = {ASSET_TAGS = (); }; };
+		C22B16C51C0042270006A8A7 /* login.png in Resources */ = {isa = PBXBuildFile; fileRef = C22B16C41C0042270006A8A7 /* login.png */; settings = {ASSET_TAGS = (); }; };
 		C22C97031BFF11F800EC632E /* ForgetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C22C97011BFF11F800EC632E /* ForgetViewController.m */; settings = {ASSET_TAGS = (); }; };
 		C22C97041BFF11F800EC632E /* ForgetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C22C97021BFF11F800EC632E /* ForgetViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		C22C97061BFF12EC00EC632E /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C22C97051BFF12EC00EC632E /* bg.png */; settings = {ASSET_TAGS = (); }; };
@@ -264,9 +264,9 @@
 		C22A90771BFDA0A100F343C4 /* JYSlideSegmentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYSlideSegmentController.m; sourceTree = "<group>"; };
 		C22B16B81C000F170006A8A7 /* verify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = verify.png; sourceTree = "<group>"; };
 		C22B16BA1C000F300006A8A7 /* goback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goback.png; sourceTree = "<group>"; };
-		C22B16BE1C000F6D0006A8A7 /* login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login.png; sourceTree = "<group>"; };
 		C22B16C01C000FA10006A8A7 /* forgivePassword.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = forgivePassword.png; sourceTree = "<group>"; };
 		C22B16C21C00100F0006A8A7 /* register.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = register.png; sourceTree = "<group>"; };
+		C22B16C41C0042270006A8A7 /* login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login.png; sourceTree = "<group>"; };
 		C22C97001BFF11F800EC632E /* ForgetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetViewController.h; sourceTree = "<group>"; };
 		C22C97011BFF11F800EC632E /* ForgetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetViewController.m; sourceTree = "<group>"; };
 		C22C97021BFF11F800EC632E /* ForgetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgetViewController.xib; sourceTree = "<group>"; };
@@ -700,8 +700,8 @@
 		C28CF1EA1BFEB314005B9ACA /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				C22B16C41C0042270006A8A7 /* login.png */,
 				C22B16C01C000FA10006A8A7 /* forgivePassword.png */,
-				C22B16BE1C000F6D0006A8A7 /* login.png */,
 				C28CF1F71BFEBE09005B9ACA /* textFeild.png */,
 				C22B16BA1C000F300006A8A7 /* goback.png */,
 			);
@@ -1682,6 +1682,7 @@
 				C23E2CA71BF716970066DC62 /* sign_address_white.png in Resources */,
 				C2953DDB1BFE165900C26CDD /* shenzhen.png in Resources */,
 				C2953DCF1BFE0BFB00C26CDD /* main_tab_search_checked.png in Resources */,
+				C22B16C51C0042270006A8A7 /* login.png in Resources */,
 				C29D77381BFC0F1100E2131C /* 我的界面背景.png in Resources */,
 				C2953D8B1BFD708D00C26CDD /* zbar-back.png in Resources */,
 				C2953DBD1BFE020E00C26CDD /* icon_list_mode.png in Resources */,
@@ -1724,7 +1725,6 @@
 				C2AF21A81BFC1E4F001E4713 /* ActDetTableViewCell.xib in Resources */,
 				C2953DCA1BFE0BFB00C26CDD /* main_tab_home.png in Resources */,
 				C2D8B9411BF76143009DFC2A /* ExpFooterTableViewCell.xib in Resources */,
-				C22B16BF1C000F6D0006A8A7 /* login.png in Resources */,
 				C22B16C31C00100F0006A8A7 /* register.png in Resources */,
 				C223B3AF1BFB091A001E93AA /* shop_detail_addr.png in Resources */,
 				C26A743A1BF60AFA006F6645 /* tabBar.png in Resources */,
