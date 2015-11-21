@@ -7,6 +7,7 @@
 //
 
 #import "MineTableViewController.h"
+#import <AVOSCloud/AVOSCloud.h>
 
 @interface MineTableViewController ()
 
@@ -56,16 +57,25 @@
     [imgView.layer setBorderWidth:4];
     [imgView.layer setBorderColor:[[UIColor blackColor] CGColor]];
     
-    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, imgView.frame.origin.y + imgView.frame.size.height, [UIScreen mainScreen].bounds.size.width, 40)];
-    label.text = @"不许叫我叔叔";
-    label.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:20];
-    label.textColor = [UIColor whiteColor];
-    label.textAlignment = NSTextAlignmentCenter;
-    [self.tableView addSubview:label];
+    _label = [[UILabel alloc] initWithFrame:CGRectMake(0, imgView.frame.origin.y + imgView.frame.size.height, [UIScreen mainScreen].bounds.size.width, 40)];
+    AVUser *currentUser = [AVUser currentUser];
+    _label.text = currentUser.username;
+    _label.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:20];
+    _label.textColor = [UIColor whiteColor];
+    _label.textAlignment = NSTextAlignmentCenter;
+    [self.tableView addSubview:_label];
     
     // 体验 关注 粉丝
     [self addViewsToImageView];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    AVUser *currentUser = [AVUser currentUser];
+    _label.text = currentUser.username;
+    [self.tableView reloadData];
 }
 
 // 体验 关注 粉丝
@@ -126,13 +136,13 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
+    
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
-    return 3;
+    
+    return 4;
 }
 
 
@@ -180,6 +190,17 @@
             return cell;
             break;
         }
+        case 3:
+        {
+            static NSString * cellID = @"4";
+            UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
+            }
+            cell.textLabel.text = @"注销用户";
+            return cell;
+            break;
+        }
         default:
             break;
     }
@@ -218,8 +239,36 @@
             self.hidesBottomBarWhenPushed = YES;
             LoginViewController * loginVC = [LoginViewController new];
             [self presentViewController:loginVC animated:YES completion:nil];
-//            [self.navigationController pushViewController:loginVC animated:YES];
+            //            [self.navigationController pushViewController:loginVC animated:YES];
             self.hidesBottomBarWhenPushed = NO;
+        }
+        case 3:
+        {
+            AVUser *user = [AVUser currentUser];
+            
+            if (user != nil) {
+                //如果有用户存在，则注销，否则不做操作
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"是否注销？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+                UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    //[self log:@"注销用户 %@",user.username];
+                    [AVUser logOut];
+                    //清空currentUser，且刷新数据
+                    AVUser *currentUser = [AVUser currentUser]; // 现在的currentUser是nil了
+                    
+                    _label.text = @"";
+                    [self.tableView reloadData];
+
+                }];
+                
+                [alertController addAction:cancelAction];
+                [alertController addAction:doneAction];
+                [self presentViewController:alertController animated:YES completion:nil];
+                
+            } else {
+
+            }
         }
             break;
         default:

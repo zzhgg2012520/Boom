@@ -7,31 +7,73 @@
 //
 
 #import "LoginViewController.h"
-
+#import <AVOSCloud/AVOSCloud.h>
 @interface LoginViewController ()
-
+{
+    NSTimer * timer;
+}
 @end
 
 @implementation LoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+//登陆
+- (IBAction)loginAction:(UIButton *)sender
+{
+    [AVUser logInWithUsernameInBackground:self.userNameTextFiedl.text password:self.passwordTextField.text block:^(AVUser *user, NSError *error) {
+        if (user != nil) {
+            NSLog(@"登陆成功");
+
+            AVUser *currentUser = [AVUser currentUser];
+            if (currentUser != nil) {
+                // 允许用户使用应用
+            } else {
+                //缓存用户对象为空时，可打开用户注册界面…
+            }
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"登陆成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            [self presentViewController:alertController animated:YES completion:nil];
+            
+            timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(dismissViewController:) userInfo:nil repeats:NO];
+            
+        } else {
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"登陆失败" message:@"请核实用户名或密码是否正确。" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"重新登陆" style:UIAlertActionStyleCancel handler:nil];
+            [alertController addAction:action];
+            [self presentViewController:alertController animated:YES completion:nil];
+            self.userNameTextFiedl.text = nil;
+            self.passwordTextField.text = @"";
+         
+        }
+    }];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+//延时器方法
+- (void)dismissViewController:(NSTimer *)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [timer invalidate];
 }
-*/
+
+- (IBAction)RegisterAction:(UIButton *)sender
+{
+    [self presentViewController:[RegisterViewController new] animated:YES completion:nil];
+}
+
+- (IBAction)forgetAction:(UIButton *)sender
+{
+    [self showDetailViewController:[ForgetViewController new] sender:nil];
+}
+
+- (IBAction)gobackAction:(UIButton *)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end

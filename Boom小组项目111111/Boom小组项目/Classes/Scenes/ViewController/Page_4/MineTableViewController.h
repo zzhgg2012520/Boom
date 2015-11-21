@@ -10,4 +10,7 @@
 
 @interface MineTableViewController : UITableViewController
 
+@property (nonatomic,strong) UILabel * label;
+@property (nonatomic,strong) NSString *tempName;
+
 @end
