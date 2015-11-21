@@ -1,0 +1,15 @@
+//
+//  ShopTime.h
+//  Boom小组项目
+//
+//  Created by lanou3g on 15/11/21.
+//  Copyright © 2015年 仲勃翰. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface ShopTime : NSObject
+
+@property (nonatomic, strong) NSString * startDate, * endDate, * time;
+
+@end

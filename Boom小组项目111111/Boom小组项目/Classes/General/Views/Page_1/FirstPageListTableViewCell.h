@@ -13,7 +13,6 @@
 
 @property (nonatomic, strong) UIImageView * backImageView;
 @property (nonatomic, strong) UILabel * titleLabel;
-@property (nonatomic, strong) UIImageView * lineImageView;
 @property (nonatomic, strong) UILabel * subTitleLabel;
 @property (nonatomic, strong) UILabel * descrLabel;
 

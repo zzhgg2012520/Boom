@@ -11,13 +11,21 @@
 
 @interface ShopDataManager : NSObject
 
-// 属性接收appDelegate里面的被管理对象上下文
-@property (nonatomic, retain) NSManagedObjectContext * myObjectContext;
-
-@property (nonatomic, retain) NSMutableArray * Array;
-
-@property (nonatomic, retain) AppDelegate * appDelegate;
-
 + (instancetype)shareDataManager;
+
+// 添加收藏对象
+- (void)addCollectTitle:(NSString *)title
+               subTitle:(NSString *)subTitle
+                    img:(NSString *)img
+                  subId:(NSString *)subId;
+
+// 查询所有收藏
+- (NSArray *)getAllCollect;
+
+// 按标题查找
+- (Collect_Type_Model *)getCollectWithTitle:(NSString *)title;
+
+// 按标题删除
+- (void)deleteCollectWithTitle:(NSString *)title;
 
 @end
