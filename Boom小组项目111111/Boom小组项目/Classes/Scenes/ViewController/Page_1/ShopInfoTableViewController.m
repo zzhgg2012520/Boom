@@ -11,6 +11,7 @@
 @interface ShopInfoTableViewController ()
 
 @property (nonatomic, strong) MKMapView * mapView;
+@property (nonatomic, strong) NSString * text;
 
 @end
 
@@ -26,8 +27,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.tableView.bounces = NO;
 
+    [self requestDataForSecondCell];
+    
+}
+
+- (void)requestDataForSecondCell{
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.string]] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        self.text = dict[@"body"][@"category"][0][@"name"];
+        
+        // 主线程刷新
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            NSIndexPath *indexPath2 = [NSIndexPath indexPathForRow:2 inSection:0];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath2] withRowAnimation:UITableViewRowAnimationAutomatic];
+            
+        });
+    }];
+    [task resume];
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -37,7 +61,7 @@
 
 // header内容
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-
+    
     // 初始化地图
     _mapView=[[MKMapView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 150)];
     [self.view addSubview:_mapView];
@@ -148,11 +172,7 @@
                 
                 UILabel * typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 0, 250, 40)];
                 [cell addSubview:typeLabel];
-                
-                NSURLRequest * request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:self.string]];
-                NSData * data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-                NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-                typeLabel.text = dict[@"body"][@"category"][0][@"name"];
+                typeLabel.text = self.text;
                 
             }
             return cell;

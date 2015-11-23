@@ -7,11 +7,13 @@
 //
 
 #import "MineTableViewController.h"
-#import <AVOSCloud/AVOSCloud.h>
 
-@interface MineTableViewController ()
+
+@interface MineTableViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UIImageView * imgView;
+@property (nonatomic, strong) UIImageView * userImg;
+@property (nonatomic, strong) NSString * loginText;
 
 @end
 
@@ -33,51 +35,156 @@
     // 背景图片
     [self addBackground];
     
+    // 用户头像
+    [self addUserImg];
+    
+    // 用户姓名
+    [self addUserName];
+    
+    // 体验 关注 粉丝
+    [self addViewsToImageView];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    // 判断是否已登录
+    AVUser *currentUser = [AVUser currentUser];
+    if (currentUser == nil) {
+        _label.text = @"未登录";
+        _userImg.image = [UIImage imageNamed:@"yonghu"];
+        _loginText = @"登录";
+    }else{
+        _label.text = currentUser.username;
+        _userImg.image = [UIImage imageWithData:[[NSUserDefaults standardUserDefaults] objectForKey:@"image"]];
+        _loginText = @"退出当前账号";
+    }
+    [self.tableView reloadData];
 }
 
 // 背景图片
 - (void)addBackground{
     
-    // 背景
     self.imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -220, [UIScreen mainScreen].bounds.size.width, 220)];
     self.imgView.image = [UIImage imageNamed:@"我的界面背景"];
     self.imgView.contentMode = UIViewContentModeScaleAspectFill;
     [self.tableView addSubview:self.imgView];
     self.tableView.contentInset = UIEdgeInsetsMake(220, 0, 0, 0);
     
-    // 用户头像，姓名
-    UIImageView * imgView = [[UIImageView alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width / 2 - 50, self.imgView.frame.origin.y + 25, 100, 100)];
-    imgView.contentMode = UIViewContentModeScaleAspectFit;
-    imgView.image = [UIImage imageNamed:@"yonghu"];
-    [self.tableView addSubview:imgView];
-    // 切圆角
-    imgView.layer.cornerRadius = imgView.frame.size.width / 2;
-    imgView.clipsToBounds = YES;
-    // 边框
-    [imgView.layer setBorderWidth:4];
-    [imgView.layer setBorderColor:[[UIColor blackColor] CGColor]];
+}
+
+// 用户头像
+- (void)addUserImg{
     
-    _label = [[UILabel alloc] initWithFrame:CGRectMake(0, imgView.frame.origin.y + imgView.frame.size.height, [UIScreen mainScreen].bounds.size.width, 40)];
+    self.userImg = [[UIImageView alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width / 2 - 50, self.imgView.frame.origin.y + 25, 100, 100)];
+    self.userImg.contentMode = UIViewContentModeScaleAspectFit;
+    [self.tableView addSubview:self.userImg];
+    // 切圆角
+    self.userImg.layer.cornerRadius = self.userImg.frame.size.width / 2;
+    self.userImg.clipsToBounds = YES;
+    // 边框
+    [self.userImg.layer setBorderWidth:4];
+    [self.userImg.layer setBorderColor:[[UIColor blackColor] CGColor]];
+    
+    // 点击更换头像
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
+    self.userImg.userInteractionEnabled = YES;
+    [self.userImg addGestureRecognizer:tap];
+    
+}
+
+// 点击更换头像
+- (void)tapAction{
+
+    // 判断是否已登录
     AVUser *currentUser = [AVUser currentUser];
-    _label.text = currentUser.username;
+    if (currentUser == nil) {
+        
+        LoginViewController * loginVC = [LoginViewController new];
+        [self presentViewController:loginVC animated:YES completion:nil];
+        
+    }else{
+        
+        UIAlertController * alter = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        [self presentViewController:alter animated:YES completion:nil];
+        
+        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        [alter addAction:cancelAction];
+        
+        UIAlertAction * cameraAction = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            // 拍照
+            [self readImageFromCamera];
+            
+        }];
+        [alter addAction:cameraAction];
+        
+        UIAlertAction * albumAction = [UIAlertAction actionWithTitle:@"从相册选取" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            // 从相册选取
+            [self readImageFromAlbum];
+            
+        }];
+        [alter addAction:albumAction];
+        
+    }
+    
+}
+
+// 拍照
+- (void)readImageFromCamera{
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        UIImagePickerController * imagePicker = [UIImagePickerController new];
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        imagePicker.delegate = self;
+        imagePicker.allowsEditing = YES;
+        [self presentViewController:imagePicker animated:YES completion:nil];
+    }else{
+        
+    }
+}
+
+// 从相册选取
+- (void)readImageFromAlbum{
+    
+    UIImagePickerController * imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imagePicker.delegate = self;
+    imagePicker.allowsEditing = YES;
+    [self presentViewController:imagePicker animated:YES completion:nil];
+    
+}
+
+// 图像处理后
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary<NSString *,id> *)editingInfo{
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"image"];
+    [[NSUserDefaults standardUserDefaults] setValue:UIImagePNGRepresentation(image) forKey:@"image"];
+    self.userImg.image = image;
+    [self.tableView reloadData];
+    [self dismissViewControllerAnimated:YES completion:nil];
+ 
+}
+
+// 用户姓名
+- (void)addUserName{
+    
+    _label = [[UILabel alloc] initWithFrame:CGRectMake(0, self.userImg.frame.origin.y + self.userImg.frame.size.height, [UIScreen mainScreen].bounds.size.width, 40)];
+    // 判断是否已登录
+    AVUser *currentUser = [AVUser currentUser];
+    if (currentUser == nil) {
+        _label.text = @"未登录";
+    }else{
+        _label.text = currentUser.username;
+    }
     _label.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:20];
     _label.textColor = [UIColor whiteColor];
     _label.textAlignment = NSTextAlignmentCenter;
     [self.tableView addSubview:_label];
     
-    // 体验 关注 粉丝
-    [self addViewsToImageView];
-    
 }
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:YES];
-    AVUser *currentUser = [AVUser currentUser];
-    _label.text = currentUser.username;
-    [self.tableView reloadData];
-}
-
+                              
 // 体验 关注 粉丝
 - (void)addViewsToImageView{
     
@@ -92,7 +199,7 @@
     [self.tableView addSubview:expLabel];
     
     UILabel * expNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -23, [UIScreen mainScreen].bounds.size.width / 3, 20)];
-    expNumLabel.text = @"8";
+    expNumLabel.text = @"0";
     expNumLabel.textColor = [UIColor whiteColor];
     expNumLabel.textAlignment = NSTextAlignmentCenter;
     [self.tableView addSubview:expNumLabel];
@@ -104,7 +211,7 @@
     [self.tableView addSubview:attLabel];
     
     UILabel * attNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(expNumLabel.frame.size.width, expNumLabel.frame.origin.y, expNumLabel.frame.size.width, expNumLabel.frame.size.height)];
-    attNumLabel.text = @"213";
+    attNumLabel.text = @"0";
     attNumLabel.textColor = [UIColor whiteColor];
     attNumLabel.textAlignment = NSTextAlignmentCenter;
     [self.tableView addSubview:attNumLabel];
@@ -116,7 +223,7 @@
     [self.tableView addSubview:fansLabel];
     
     UILabel * fansNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(expNumLabel.frame.size.width * 2, expNumLabel.frame.origin.y, expNumLabel.frame.size.width, expNumLabel.frame.size.height)];
-    fansNumLabel.text = @"46";
+    fansNumLabel.text = @"0";
     fansNumLabel.textColor = [UIColor whiteColor];
     fansNumLabel.textAlignment = NSTextAlignmentCenter;
     [self.tableView addSubview:fansNumLabel];
@@ -137,70 +244,75 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 4;
+    if (section == 0) {
+        return 2;
+    }
+    return 1;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    switch (indexPath.row) {
+    switch (indexPath.section) {
         case 0:
         {
-            static NSString * cellID = @"我的收藏";
-            UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-            if (!cell) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
+            if (indexPath.row == 0) {
+                
+                static NSString * cellID = @"我的收藏";
+                UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+                if (!cell) {
+                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
+                }
+                
+                UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, 40)];
+                label.text = @"我的收藏";
+                [cell addSubview:label];
+                
+                return cell;
+                
             }
             
-            UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, 40)];
-            label.text = @"我的收藏";
-            [cell addSubview:label];
-            
-            return cell;
+            if (indexPath.row == 1) {
+                
+                static NSString * cellID = @"我的活动";
+                UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+                if (!cell) {
+                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
+                }
+                
+                UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, 40)];
+                label.text = @"我的活动";
+                [cell addSubview:label];
+                
+                return cell;
+            }
         }
             break;
+            
         case 1:
         {
-            static NSString * cellID = @"我的活动";
+            static NSString * cellID = @"登录退出";
             UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
             }
             
-            UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, 40)];
-            label.text = @"我的活动";
-            [cell addSubview:label];
-            
+            // 判断是否已登录
+//            AVUser *currentUser = [AVUser currentUser];
+//            if (currentUser == nil) {
+//                cell.textLabel.text = @"登录";
+//            }else{
+//                cell.textLabel.text = @"退出当前账号";
+//            }
+            cell.textLabel.text = _loginText;
             return cell;
-            break;
         }
-        case 2:
-        {
-            static NSString * cellID = @"3";
-            UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-            if (!cell) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
-            }
-            
-            return cell;
             break;
-        }
-        case 3:
-        {
-            static NSString * cellID = @"4";
-            UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-            if (!cell) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
-            }
-            cell.textLabel.text = @"注销用户";
-            return cell;
-            break;
-        }
         default:
             break;
     }
@@ -220,33 +332,26 @@
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    switch (indexPath.row) {
+    switch (indexPath.section) {
         case 0:
         {
-            self.hidesBottomBarWhenPushed = YES;
-            CollectViewController * collectVC = [CollectViewController new];
-            [self.navigationController pushViewController:collectVC animated:YES];
-            self.hidesBottomBarWhenPushed = NO;
-        }
+            if (indexPath.row == 0) {
+                
+                self.hidesBottomBarWhenPushed = YES;
+                CollectViewController * collectVC = [CollectViewController new];
+                [self.navigationController pushViewController:collectVC animated:YES];
+                self.hidesBottomBarWhenPushed = NO;
+            }
             break;
+        }
+
         case 1:
         {
-            
-        }
-            break;
-        case 2:
-        {
-            self.hidesBottomBarWhenPushed = YES;
-            LoginViewController * loginVC = [LoginViewController new];
-            [self presentViewController:loginVC animated:YES completion:nil];
-            //            [self.navigationController pushViewController:loginVC animated:YES];
-            self.hidesBottomBarWhenPushed = NO;
-        }
-        case 3:
-        {
+
             AVUser *user = [AVUser currentUser];
             
-            if (user != nil) {
+            if (user != nil){
+                
                 //如果有用户存在，则注销，否则不做操作
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"是否注销？" message:nil preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
@@ -257,24 +362,27 @@
                     //清空currentUser，且刷新数据
                     AVUser *currentUser = [AVUser currentUser]; // 现在的currentUser是nil了
                     
-                    _label.text = @"";
+                    _label.text = @"未登录";
+                    _userImg.image = [UIImage imageNamed:@"yonghu"];
+                    _loginText = @"登录";
                     [self.tableView reloadData];
-
                 }];
                 
                 [alertController addAction:cancelAction];
                 [alertController addAction:doneAction];
                 [self presentViewController:alertController animated:YES completion:nil];
                 
-            } else {
-
+            }else{
+                
+                LoginViewController * loginVC = [LoginViewController new];
+                [self presentViewController:loginVC animated:YES completion:nil];
+                
             }
         }
-            break;
+        
         default:
             break;
     }
-    
 }
-
+                                
 @end

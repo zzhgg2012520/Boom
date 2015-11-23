@@ -66,7 +66,6 @@
     firstPageListTVC.subId = model.subId;
     [self.navigationController pushViewController:firstPageListTVC animated:YES];
 
-    
 }
 
 @end

@@ -138,7 +138,7 @@ YALContextMenuTableViewDelegate
         [self.allData addObject:model];
     }
     [self.tableView reloadData];
-    
+  
 }
 
 - (void)rightButton:(UIButton *)sender{
@@ -317,7 +317,7 @@ YALContextMenuTableViewDelegate
         FirstPageListTableViewController
         * firstPageListTVC = [FirstPageListTableViewController new];
         firstPageListTVC.subId = subjectList.subId;
-        firstPageListTVC.subjectList = subjectList;
+//        firstPageListTVC.subjectList = subjectList;
         [self.navigationController pushViewController:firstPageListTVC animated:YES];
         self.hidesBottomBarWhenPushed = NO;
         

@@ -12,6 +12,6 @@
 
 @property (nonatomic, strong) NSString * subId;
 
-@property (nonatomic, strong) SubjectList * subjectList;
+//@property (nonatomic, strong) SubjectList * subjectList;
 
 @end

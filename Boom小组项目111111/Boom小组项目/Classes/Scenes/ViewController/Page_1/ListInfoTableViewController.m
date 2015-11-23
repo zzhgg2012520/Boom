@@ -67,26 +67,42 @@
 
 // 解析轮播图图片
 - (void)requestDataForScrollViewWithString:(NSString *)string{
-    
-    NSURLRequest * request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:string]];
-    NSData * data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-    for (NSDictionary * dic in dict[@"body"][@"imgs"]) {
-        ScrollViewModel * model = [ScrollViewModel new];
-        [model setValuesForKeysWithDictionary:dic];
-        [self.scrollViewArray addObject:model.mImg];
-    }
 
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:string]] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        for (NSDictionary * dic in dict[@"body"][@"imgs"]) {
+            ScrollViewModel * model = [ScrollViewModel new];
+            [model setValuesForKeysWithDictionary:dic];
+            [self.scrollViewArray addObject:model.mImg];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        });
+        
+    }];
+    [task resume];
+    
 }
 
 // 解析
 - (void)requestDataForDescrWithString:(NSString *)string{
     
-    NSURLRequest * request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:string]];
-    NSData * data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-    self.descrModel = [ItemInfoDescrModel new];
-    [self.descrModel setValuesForKeysWithDictionary:dict[@"body"]];
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:string]] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        self.descrModel = [ItemInfoDescrModel new];
+        [self.descrModel setValuesForKeysWithDictionary:dict[@"body"]];
+        // 主线程刷新
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSIndexPath *indexPath2 = [NSIndexPath indexPathForRow:1 inSection:0];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath2] withRowAnimation:UITableViewRowAnimationNone];
+        });
+    }];
+    [task resume];
     
 }
 
@@ -148,6 +164,7 @@
                 ItemInfoDescrCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
                 if (!cell) {
                     cell = [[ItemInfoDescrCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
+#warning 判断是否已经刷新，没刷新就给默认值
                     cell.model = self.descrModel;
                     self.navigationItem.title = self.descrModel.name;
     
@@ -189,6 +206,7 @@
                     // webView初始化
                     self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 1)];
                     NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:URL_ForWebView, self.shopId]]];
+                    
                     [self.webView loadRequest:request];
                     self.webView.delegate = self;
                     self.webView.scrollView.scrollEnabled = NO;
@@ -251,11 +269,13 @@
     
     UIScrollView *webViewScroll = webView.subviews[0];
     webView.frame = CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webViewScroll.contentSize.width, webViewScroll.contentSize.height);
+    
     // 用属性接收高度
     self.height = webView.frame.size.height;
-    // 刷新
-    [self.tableView reloadData];
 
+    // 刷新
+    [self.tableView reloadSections:[[NSIndexSet alloc] initWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+    
 }
 
 // cell点击
