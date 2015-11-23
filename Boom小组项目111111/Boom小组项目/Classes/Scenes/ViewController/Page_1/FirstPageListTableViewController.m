@@ -36,13 +36,21 @@
 
 - (void)viewWillAppear:(BOOL)animated{
 
-    // 如果已被收藏
-    ModelForListCell * model = self.firstCellArray[0];
-    if ([[ShopDataManager shareDataManager] getCollectWithTitle:model.title] != nil){
+    // 判断是否已登录
+    AVUser *currentUser = [AVUser currentUser];
+    if (currentUser == nil) {
         
-        self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"sign_stared"];
+        self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"sign_star"];
+        
+    }else{
+        
+        // 如果已被收藏
+        ModelForListCell * model = self.firstCellArray[0];
+        if ([[ShopDataManager shareDataManager] getCollectWithTitle:model.title] != nil){
+            
+            self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"sign_stared"];
+        }
     }
-
 }
 
 // 数据解析
@@ -90,19 +98,28 @@
 // 收藏事件
 - (void)collect:(UIBarButtonItem *)sender{
 
-    ModelForListCell * model = self.firstCellArray[0];
-    if ([[ShopDataManager shareDataManager] getCollectWithTitle:model.title] == nil) {
+    // 判断是否已登录
+    AVUser *currentUser = [AVUser currentUser];
+    if (currentUser == nil) {
         
-        // 如果未被收藏
-        sender.image = [UIImage imageNamed:@"sign_stared"];
-        [[ShopDataManager shareDataManager] addCollectTitle:model.title subTitle:model.subTitle img:model.image subId:self.subId];
-    }else{
+        LoginViewController * loginVC = [LoginViewController new];
+        [self presentViewController:loginVC animated:YES completion:nil];
         
-        // 如果已被收藏
-        sender.image = [UIImage imageNamed:@"sign_star"];
-        [[ShopDataManager shareDataManager] deleteCollectWithTitle:model.title];
+    }else
+    {
+        ModelForListCell * model = self.firstCellArray[0];
+        if ([[ShopDataManager shareDataManager] getCollectWithTitle:model.title] == nil) {
+            
+            // 如果未被收藏
+            sender.image = [UIImage imageNamed:@"sign_stared"];
+            [[ShopDataManager shareDataManager] addCollectTitle:model.title subTitle:model.subTitle img:model.image subId:self.subId];
+        }else{
+            
+            // 如果已被收藏
+            sender.image = [UIImage imageNamed:@"sign_star"];
+            [[ShopDataManager shareDataManager] deleteCollectWithTitle:model.title];
+        }
     }
-    
 }
 
 // tableView的属性设置
@@ -122,20 +139,48 @@
     [model setValuesForKeysWithDictionary:dict[@"body"]];
     [self.firstCellArray addObject:model];
 
+   
+//    NSURLSession *session = [NSURLSession sharedSession];
+//    NSURLSessionDataTask *task = [session dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:string]] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+//        
+//        NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+//        ModelForListCell * model = [ModelForListCell new];
+//        [model setValuesForKeysWithDictionary:dict[@"body"]];
+//        [self.firstCellArray addObject:model];
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+//        });
+//    }];
+//    
+//    [task resume];
+    
 }
 
 // 第二组cell数据解析
 - (void)requsetDataForSecondCellWithString:(NSString *)string{
     
-    NSURLRequest * request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:string]];
-    NSData * data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-    for (NSDictionary * dic in dict[@"body"][@"contents"]){
-        ModelForContents * model = [ModelForContents new];
-        [model setValuesForKeysWithDictionary:dic];
-        [self.secondCellArray addObject:model];
-    }
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:string]] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        for (NSDictionary * dic in dict[@"body"][@"contents"]){
+            ModelForContents * model = [ModelForContents new];
+            [model setValuesForKeysWithDictionary:dic];
+            [self.secondCellArray addObject:model];
+        }
+        // 主线程刷新
+        dispatch_async(dispatch_get_main_queue(), ^{
 
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+        });
+
+    }];
+    
+    [task resume];
+    
+    
 }
 
 // 分组数
@@ -189,7 +234,6 @@
         return cell;
         
     }
-
 }
 
 // 行高
@@ -206,7 +250,6 @@
         return [ListItemTableViewCell calcHeightForCellWithModelForContents:model] - 3;
         
     }
-
 }
 
 // cell点击
