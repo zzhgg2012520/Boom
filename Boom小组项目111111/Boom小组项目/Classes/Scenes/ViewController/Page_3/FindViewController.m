@@ -24,6 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    
+    self.title = @"发现";
 #pragma mark - 添加子控制器
     
     ExperienceTableViewController *ExpVC = [ExperienceTableViewController new];
@@ -97,7 +99,7 @@
 
 #pragma mark - 重写----scrollViewDelegate中的代理方法 实现滑动
 
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     
     // 计算偏移量
     int index = fabs(scrollView.contentOffset.x / SCROLLWIDTH_3);

@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class Experience;
 @interface ExpDetDisTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *userImgView;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLbl;
 @property (weak, nonatomic) IBOutlet UILabel *creatTimeLbl;
 @property (weak, nonatomic) IBOutlet UILabel *disLbl;
+@property (nonatomic,strong) Experience * experience;
+
+- (void)setExperience:(Experience *)experience;
 
 @end

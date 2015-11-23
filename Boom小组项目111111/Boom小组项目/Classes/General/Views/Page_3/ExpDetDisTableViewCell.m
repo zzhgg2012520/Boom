@@ -10,14 +10,12 @@
 
 @implementation ExpDetDisTableViewCell
 
-- (void)awakeFromNib {
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)setExperience:(Experience *)experience
+{
+    self.userNameLbl.text = experience.userName;
+    self.disLbl.text = experience.desc;
+    self.creatTimeLbl.text = experience.createTime;
+    [self.userImgView sd_setImageWithURL:[NSURL URLWithString:experience.userImg]];
 }
 
 @end

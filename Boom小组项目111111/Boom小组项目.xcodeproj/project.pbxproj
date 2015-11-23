@@ -198,7 +198,6 @@
 		C2AF21A71BFC1E4F001E4713 /* ActDetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AF21A51BFC1E4F001E4713 /* ActDetTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		C2AF21A81BFC1E4F001E4713 /* ActDetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2AF21A61BFC1E4F001E4713 /* ActDetTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		C2AF21AC1BFC278D001E4713 /* ActDetDisTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AF21AA1BFC278D001E4713 /* ActDetDisTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		C2AF21AD1BFC278D001E4713 /* ActDetDisTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2AF21AB1BFC278D001E4713 /* ActDetDisTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		C2B7F1441BFEBAA80090A7FC /* LunBoTu.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B7F1431BFEBAA80090A7FC /* LunBoTu.m */; settings = {ASSET_TAGS = (); }; };
 		C2B7F1471BFED0860090A7FC /* Discuss.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B7F1461BFED0860090A7FC /* Discuss.m */; settings = {ASSET_TAGS = (); }; };
 		C2D8B93A1BF76143009DFC2A /* ActivityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D8B92F1BF76143009DFC2A /* ActivityTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
@@ -570,7 +569,6 @@
 		C2AF21A61BFC1E4F001E4713 /* ActDetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActDetTableViewCell.xib; sourceTree = "<group>"; };
 		C2AF21A91BFC278D001E4713 /* ActDetDisTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActDetDisTableViewCell.h; sourceTree = "<group>"; };
 		C2AF21AA1BFC278D001E4713 /* ActDetDisTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActDetDisTableViewCell.m; sourceTree = "<group>"; };
-		C2AF21AB1BFC278D001E4713 /* ActDetDisTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActDetDisTableViewCell.xib; sourceTree = "<group>"; };
 		C2B7F1421BFEBAA80090A7FC /* LunBoTu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LunBoTu.h; sourceTree = "<group>"; };
 		C2B7F1431BFEBAA80090A7FC /* LunBoTu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LunBoTu.m; sourceTree = "<group>"; };
 		C2B7F1451BFED0860090A7FC /* Discuss.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Discuss.h; sourceTree = "<group>"; };
@@ -1050,7 +1048,6 @@
 				C2AF21A61BFC1E4F001E4713 /* ActDetTableViewCell.xib */,
 				C2AF21A91BFC278D001E4713 /* ActDetDisTableViewCell.h */,
 				C2AF21AA1BFC278D001E4713 /* ActDetDisTableViewCell.m */,
-				C2AF21AB1BFC278D001E4713 /* ActDetDisTableViewCell.xib */,
 				C2B7F1421BFEBAA80090A7FC /* LunBoTu.h */,
 				C2B7F1431BFEBAA80090A7FC /* LunBoTu.m */,
 			);
@@ -1748,7 +1745,6 @@
 				C2975A6C1BF1EBFB000B4DFF /* Main.storyboard in Resources */,
 				C2975B4B1BF1EC2F000B4DFF /* 类型背景.png in Resources */,
 				C2953DC91BFE0BFB00C26CDD /* main_tab_discover_checked.png in Resources */,
-				C2AF21AD1BFC278D001E4713 /* ActDetDisTableViewCell.xib in Resources */,
 				C2975B851BF21978000B4DFF /* ContextMenuCell.xib in Resources */,
 				C23E2CA01BF7168C0066DC62 /* img_sign_treatment.png in Resources */,
 				C23E2C851BF714C30066DC62 /* sceneCollectionViewCell.xib in Resources */,

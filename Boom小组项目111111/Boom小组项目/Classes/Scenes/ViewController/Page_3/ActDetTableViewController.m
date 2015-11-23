@@ -28,26 +28,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tableView.showsVerticalScrollIndicator = NO;
     self.ActDetTableView.frame = self.view.frame;
-    
     self.ActDetTableView.delegate = self;
     self.ActDetTableView.dataSource = self;
     
     self.title = @"活动详情";
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ActDetTableViewCell" bundle:nil] forCellReuseIdentifier:@"ADTID"];
-    [self.tableView registerNib:[UINib nibWithNibName:@"ActDetDisTableViewCell" bundle:nil] forCellReuseIdentifier:@"ADDID"];
+    [self.tableView registerClass:[ActDetDisTableViewCell class] forCellReuseIdentifier:@"ADDID"];
     
     NSString * url_string = [NSString stringWithFormat:@"http://www.molyo.com//mActive/getInfo?id=%@&accessToken=1511161452277577954b2bec4045110d",self.actID];
     [self requestDataWithListString:url_string];
     
+    //cell自适应高度
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 100;
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 #pragma mark - 解析数据
 
@@ -122,7 +119,8 @@
             
             Activity *a = self.allDataArray[0];
             
-            ADDCell.actDetDisLbl.text = a.desc;
+//            ADDCell.actDetDisLbl.text = a.desc;
+            ADDCell.activity = a;
             
             break;
         }
@@ -134,9 +132,8 @@
 
 - (void)shopAddressBtnAction:(UIButton *)sender
 {
-    
+    self.hidesBottomBarWhenPushed = YES;
     ShopMapViewController *SMVC = [ShopMapViewController new];
-    
     SMVC.latitude = self.latitude;
     SMVC.longitude = self.longitude;
     SMVC.name = self.sponsorName;
@@ -153,61 +150,18 @@
     switch (indexPath.row) {
         case 0:{
             
-            height = 320;
+            height = 282;
             break;
         }
         case 1:{
-            
-            height = 2000;
-
+          
+            Activity *model = self.allDataArray[0];
+            height = [ActDetDisTableViewCell calcHeightForCellWithActivity:model] + 10;
+//            NSLog(@"<><><><>%f",height);
             break;
         }
     }
     return height;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

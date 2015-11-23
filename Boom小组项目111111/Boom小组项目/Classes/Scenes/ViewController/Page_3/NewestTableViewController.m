@@ -24,7 +24,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.currentPage = 1;
     
     self.NewestTableView.frame = CGRectMake(SCROLLWIDTH_3 * 2, 64, SCROLLWIDTH_3, SCROLLHEIGHT_3);
@@ -204,12 +203,11 @@
 
 - (void)shopNameBtnAction:(UIButton *)sender
 {
-    
+    self.hidesBottomBarWhenPushed = YES;
     ListInfoTableViewController *LITVC = [ListInfoTableViewController new];
-    
     LITVC.shopId = self.shopID;
-    
     [self.navigationController pushViewController:LITVC animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -224,7 +222,7 @@
         }
         case 1:{
             
-            height = 320;
+            height = 280;
             break;
         }
         case 2:{

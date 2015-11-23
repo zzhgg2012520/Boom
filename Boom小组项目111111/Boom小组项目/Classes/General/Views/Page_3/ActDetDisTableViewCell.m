@@ -10,38 +10,41 @@
 #import "ActDetDisTableViewCell.h"
 
 @implementation ActDetDisTableViewCell
-
-//// 计算文字高度
-//- (CGFloat)calcHeightWithActivity:(Activity *)activity{
-//    
-//    // 最大范围
-//    CGSize maxSize = CGSizeMake(self.actDetDisLbl.frame.size.width, 1000);
-//    // 字典
-//    NSDictionary * dict = @{NSFontAttributeName:self.actDetDisLbl.font};
-//    // 获取frame的方法
-//    CGRect frame = [activity.desc boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil];
-//    return frame.size.height;
-//    
-//}
-//
-//// 计算cell高度
-//+ (CGFloat)calcHeightForCellWithActivity:(Activity *)activity{
-//    
-//    // 创建一个对象，接收label的高度
-//    CGFloat labelHeight = [[ActDetDisTableViewCell new] calcHeightWithActivity:activity];
-//    return labelHeight;
-//    
-//}
-
-
-- (void)awakeFromNib {
-    // Initialization code
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        [self addViews];
+    }
+    return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+- (void)addViews
+{
+    self.actDetDisLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 5,[UIScreen mainScreen].bounds.size.width - 20, 80)];
+    self.actDetDisLbl.numberOfLines = 0;
+    [self addSubview:_actDetDisLbl];
+}
 
-    // Configure the view for the selected state
+- (void)setActivity:(Activity *)activity
+{
+    self.actDetDisLbl.text = activity.desc;
+    
+    CGRect frame = _actDetDisLbl.frame;
+    frame.size.height = [self calcHightWithActivity:activity];
+    self.actDetDisLbl.frame = frame;
+}
+
+- (CGFloat)calcHightWithActivity:(Activity *)activity
+{
+    CGSize maxSize = CGSizeMake(_actDetDisLbl.frame.size.width, 1000);
+    CGRect frame = [activity.desc boundingRectWithSize:maxSize options:(NSStringDrawingUsesLineFragmentOrigin) attributes:@{NSFontAttributeName:_actDetDisLbl.font} context:nil];
+    return frame.size.height;
+}
+
++ (CGFloat)calcHeightForCellWithActivity:(Activity *)activity
+{
+    CGFloat labelHeight = [[[ActDetDisTableViewCell alloc] init] calcHightWithActivity:activity];
+    return labelHeight;
 }
 
 @end
