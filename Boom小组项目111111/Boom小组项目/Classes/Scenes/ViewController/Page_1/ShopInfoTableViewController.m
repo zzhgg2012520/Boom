@@ -261,23 +261,11 @@
     
     if (indexPath.row == 1) {
         
-        // 弹窗
-        UIAlertController * alterController = [UIAlertController alertControllerWithTitle:self.descrModel.name message:self.descrModel.phone preferredStyle:UIAlertControllerStyleAlert];
-        [self presentViewController:alterController animated:YES completion:nil];
-        
-        // 按钮
-        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-        [alterController addAction:cancelAction];
-        UIAlertAction * callAction = [UIAlertAction actionWithTitle:@"拨出" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            
-            // 拨打电话
-            UIWebView * callWebview = [[UIWebView alloc] init];
-            [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", self.descrModel.phone]]]];
-            [self.view addSubview:callWebview];
-            
-        }];
-        [alterController addAction:callAction];
-        
+        // 拨打电话
+        UIWebView * callWebview = [[UIWebView alloc] init];
+        [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", self.descrModel.phone]]]];
+        [self.view addSubview:callWebview];
+  
     }
     
 }

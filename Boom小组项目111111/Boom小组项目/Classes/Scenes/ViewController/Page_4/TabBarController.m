@@ -99,7 +99,7 @@
     [self setupNavigationBarWithNC:mineNC];
     
     // tabBar标题
-    mineNC.tabBarItem.title = @"我";
+    mineNC.tabBarItem.title = @"我的";
     // tabBar图片
     mineNC.tabBarItem.image = [UIImage imageNamed:@"main_tab_my"];
     mineNC.tabBarItem.selectedImage = [[UIImage imageNamed:@"main_tab_my_checked"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];

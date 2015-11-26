@@ -116,5 +116,6 @@
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
 #import "ForgetViewController.h"
+#import "MyActivityViewController.h"
 #import <AVOSCloud/AVOSCloud.h>
 #endif /* Headers_pch */

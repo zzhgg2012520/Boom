@@ -56,7 +56,11 @@
         _loginText = @"登录";
     }else{
         _label.text = currentUser.username;
-        _userImg.image = [UIImage imageWithData:[[NSUserDefaults standardUserDefaults] objectForKey:@"image"]];
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"image"] == nil) {
+            _userImg.image = [UIImage imageNamed:@"yonghu"];
+        }else{
+            _userImg.image = [UIImage imageWithData:[[NSUserDefaults standardUserDefaults] objectForKey:@"image"]];
+        }
         _loginText = @"退出当前账号";
     }
     [self.tableView reloadData];
@@ -301,14 +305,6 @@
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
             }
-            
-            // 判断是否已登录
-//            AVUser *currentUser = [AVUser currentUser];
-//            if (currentUser == nil) {
-//                cell.textLabel.text = @"登录";
-//            }else{
-//                cell.textLabel.text = @"退出当前账号";
-//            }
             cell.textLabel.text = _loginText;
             return cell;
         }
@@ -337,10 +333,37 @@
         {
             if (indexPath.row == 0) {
                 
-                self.hidesBottomBarWhenPushed = YES;
-                CollectViewController * collectVC = [CollectViewController new];
-                [self.navigationController pushViewController:collectVC animated:YES];
-                self.hidesBottomBarWhenPushed = NO;
+                AVUser *currentUser = [AVUser currentUser];
+                if (currentUser == nil) {
+                    
+                    LoginViewController * loginVC = [LoginViewController new];
+                    [self presentViewController:loginVC animated:YES completion:nil];
+                    
+                }else{
+                    
+                    self.hidesBottomBarWhenPushed = YES;
+                    CollectViewController * collectVC = [CollectViewController new];
+                    [self.navigationController pushViewController:collectVC animated:YES];
+                    self.hidesBottomBarWhenPushed = NO;
+
+                }
+            }
+            if (indexPath.row == 1) {
+                
+                AVUser *currentUser = [AVUser currentUser];
+                if (currentUser == nil) {
+                    
+                    LoginViewController * loginVC = [LoginViewController new];
+                    [self presentViewController:loginVC animated:YES completion:nil];
+                    
+                }else{
+                    
+                    self.hidesBottomBarWhenPushed = YES;
+                    MyActivityViewController * myAcyivityVC = [MyActivityViewController new];
+                    [self.navigationController pushViewController:myAcyivityVC animated:YES];
+                    self.hidesBottomBarWhenPushed = NO;
+                    
+                }
             }
             break;
         }
