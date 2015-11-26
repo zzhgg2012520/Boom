@@ -53,25 +53,14 @@
 
 - (void) readerView:(ZBarReaderView *)readerView didReadSymbols: (ZBarSymbolSet *)symbols fromImage:(UIImage *)image
 {
+    WebViewController *webController = [WebViewController new];
     ZBarSymbol * s = nil;
     for (s in symbols)
     {
-        text.text = s.data;
-        NSLog(@"<><><><><><M><><>%@",text.text);
+        webController.urlString = s.data;
         break;
     }
-    
-    [text addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionNew context:nil];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
-{
-    if ([object isKindOfClass:[text class]] && [keyPath isEqualToString:@"text"]) {
-        if(!change[@"new"]){
-            [self.navigationController pushViewController:[WebViewController new] animated:YES];
-        }
-    }
-    [text removeObserver:self forKeyPath:@"text"]; 
+    [self.navigationController pushViewController:webController animated:YES];
 }
 
 - (void) init_camera

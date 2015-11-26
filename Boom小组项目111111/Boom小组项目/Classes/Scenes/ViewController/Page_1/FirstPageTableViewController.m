@@ -49,7 +49,7 @@ YALContextMenuTableViewDelegate
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"img_scan_white.png"] style:UIBarButtonItemStylePlain target:self action:@selector(leftBarButtonItemAction:)];
     
     // title
-    self.navigationItem.title = @"多啦";
+    self.navigationItem.title = @"Boom";
 
     // 去掉cell横线
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
