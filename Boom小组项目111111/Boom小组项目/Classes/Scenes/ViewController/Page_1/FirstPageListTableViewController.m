@@ -138,24 +138,6 @@
     ModelForListCell * model = [ModelForListCell new];
     [model setValuesForKeysWithDictionary:dict[@"body"]];
     [self.firstCellArray addObject:model];
-
-   
-//    NSURLSession *session = [NSURLSession sharedSession];
-//    NSURLSessionDataTask *task = [session dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:string]] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        
-//        NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-//        ModelForListCell * model = [ModelForListCell new];
-//        [model setValuesForKeysWithDictionary:dict[@"body"]];
-//        [self.firstCellArray addObject:model];
-//        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-//            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-//        });
-//    }];
-//    
-//    [task resume];
-    
 }
 
 // 第二组cell数据解析

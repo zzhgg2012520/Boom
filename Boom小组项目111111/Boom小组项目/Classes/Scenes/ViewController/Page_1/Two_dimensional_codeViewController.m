@@ -53,7 +53,7 @@
 
 - (void) readerView:(ZBarReaderView *)readerView didReadSymbols: (ZBarSymbolSet *)symbols fromImage:(UIImage *)image
 {
-    WebViewController * webController = [WebViewController new];
+    WebViewController *webController = [WebViewController new];
     ZBarSymbol * s = nil;
     for (s in symbols)
     {
