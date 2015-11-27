@@ -27,10 +27,14 @@
     
     self.title = @"搜搜";
     
+    //影藏tableView线
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [[SearchDataManager sharedDataManager] setExtraCellHidden:self.tableView];
+    
     [self loadViews];
     //[self loadData];
+    
 }
-
 
 #pragma mark - ~~
 #pragma mark 加载视图

@@ -68,6 +68,10 @@ static NSString *const listCellID = @"listCell";
     //注册listCell
     [self.tableView registerNib:[UINib nibWithNibName:@"ListCell" bundle:nil] forCellReuseIdentifier:listCellID];
     
+    //影藏tableView线
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [[SearchDataManager sharedDataManager] setExtraCellHidden:self.tableView];
+
 }
 
 //初始化地图

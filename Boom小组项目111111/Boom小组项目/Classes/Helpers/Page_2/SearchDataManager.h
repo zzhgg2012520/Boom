@@ -18,7 +18,8 @@ typedef void(^Result)();
 - (void)requestDataWithListString:(NSString *)string;
 //allcategorys
 - (void)requestDataWithAllFoodString:(NSString *)string;
-
+//无数据下，隐藏tableView线
+- (void)setExtraCellHidden:(UITableView *)tableView;
 
 @property (nonatomic,copy) Result result;
 @property (nonatomic,strong) NSMutableArray *allBusinessArray;

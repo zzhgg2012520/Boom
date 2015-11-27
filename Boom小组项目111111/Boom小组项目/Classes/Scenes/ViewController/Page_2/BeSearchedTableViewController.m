@@ -52,6 +52,9 @@ static NSString *const listCellID = @"listCell";
     //隐藏tabBar
     self.tabBarController.tabBar.hidden = YES;
  
+    //影藏tableView线
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [[SearchDataManager sharedDataManager] setExtraCellHidden:self.tableView];
 }
 
 - (void)addAlertView

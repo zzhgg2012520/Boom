@@ -40,6 +40,16 @@
     }else{
         self.view.userInteractionEnabled = NO;
     }
+
+    //下拉加载
+    [self pullToLoadData];
+    //上拉刷新
+    [self dropToRefresh];
+
+    //影藏tableView线
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [[SearchDataManager sharedDataManager] setExtraCellHidden:self.tableView];
+    
 }
 
 - (void)didReceiveMemoryWarning {

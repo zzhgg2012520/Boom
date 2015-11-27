@@ -147,7 +147,7 @@ static NSString *const sceneCellID = @"scene";
     self.sceneCollectionView.showsVerticalScrollIndicator = NO;
     self.sceneCollectionView.bounces = NO;
 //    sceneFlowLayout.minimumInteritemSpacing = 0;
-    sceneFlowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    sceneFlowLayout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
     sceneFlowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     self.sceneCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, SCROLLHEIGHT / 3 + 50, SCROLLWIDTH, SCROLLHEIGHT / 4 - 50) collectionViewLayout:sceneFlowLayout];
     self.sceneCollectionView.backgroundColor = [UIColor whiteColor];
@@ -208,10 +208,10 @@ static NSString *const sceneCellID = @"scene";
     self.hidesBottomBarWhenPushed = NO;
 }
 
--(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
-    return UIEdgeInsetsMake(0, 0, 0, 0);
-}
+//-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+//{
+//    return UIEdgeInsetsMake(0, 0, 0, 0);
+//}
 
 #pragma mark -- request business data
 - (void)requestBusiness
