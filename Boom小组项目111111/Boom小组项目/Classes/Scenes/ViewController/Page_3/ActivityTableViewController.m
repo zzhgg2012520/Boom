@@ -32,10 +32,14 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ActivityTableViewCell" bundle:nil] forCellReuseIdentifier:@"actID"];
     
-    //下拉加载
-    [self pullToLoadData];
-    //上拉刷新
-    [self dropToRefresh];
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"NET"] isEqualToString:@"1"]) {
+        //下拉加载
+        [self pullToLoadData];
+        //上拉刷新
+        [self dropToRefresh];
+    }else{
+        self.view.userInteractionEnabled = NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

@@ -28,9 +28,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // 去掉返回按钮文字
+    UIBarButtonItem * backButton = [UIBarButtonItem new];
+    backButton.title = @"";
+    self.navigationItem.backBarButtonItem = backButton;
+    
+    self.navigationItem.title = @"商家详情";
+    
     self.tableView.bounces = NO;
 
-    [self requestDataForSecondCell];
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"NET"] isEqualToString:@"1"]) {
+        [self requestDataForSecondCell];
+    }else{
+        self.view.userInteractionEnabled = NO;
+    }
     
 }
 

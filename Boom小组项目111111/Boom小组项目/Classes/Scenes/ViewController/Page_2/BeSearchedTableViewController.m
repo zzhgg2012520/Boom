@@ -31,8 +31,11 @@ static NSString *const listCellID = @"listCell";
     self.currentPage = 1;
     
 #pragma mark -- 请求数据：刷新，加载, 刷新数据
-    [self pullTlLoadData];
-    [self dropToRefresh];
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"NET"] isEqualToString:@"1"]) {
+        [self pullTlLoadData];
+        [self dropToRefresh];
+    }
+    
     [SearchDataManager sharedDataManager].result = ^(){
         
 #pragma mark -- 判断是否有数据，无数据弹出alertView提示

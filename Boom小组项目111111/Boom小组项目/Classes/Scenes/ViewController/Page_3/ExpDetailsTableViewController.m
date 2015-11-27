@@ -43,13 +43,22 @@
     
     NSString * url_string = [NSString stringWithFormat:@"http://www.molyo.com//mExperience/getInfo?id=%@&accessToken=1511161452277577954b2bec4045110d&device=m2&os=Android+5.1&osType=android&netWork=wifi",self.expID];
     
-    [self requestDataWithListString:url_string];
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"NET"] isEqualToString:@"1"]) {
+        [self requestDataWithListString:url_string];
+    }else{
+        self.view.userInteractionEnabled = NO;
+    }
+
     [self.tableView reloadData];
     
     NSString *url_string_1 = [NSString stringWithFormat:@"http://www.molyo.com//mExperience/response/getList?businessId=%@&pageSize=8&currentPage=1&accessToken=",self.expID];
     
-    [self requestDataWithListString_1:url_string_1];
-    
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"NET"] isEqualToString:@"1"]) {
+        [self requestDataWithListString_1:url_string_1];
+    }else{
+        self.view.userInteractionEnabled = NO;
+    }
+ 
 }
 
 #pragma mark - 解析数据

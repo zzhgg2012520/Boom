@@ -57,11 +57,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    // 去掉返回按钮文字
+    UIBarButtonItem * backButton = [UIBarButtonItem new];
+    backButton.title = @"";
+    self.navigationItem.backBarButtonItem = backButton;
+    
     self.tableView.showsVerticalScrollIndicator = NO;
     
     self.string = [NSString stringWithFormat:URL_ForDescr, self.shopId];
-    [self requestDataForScrollViewWithString:self.string];
-    [self requestDataForDescrWithString:self.string];
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"NET"] isEqualToString:@"1"]) {
+        [self requestDataForScrollViewWithString:self.string];
+        [self requestDataForDescrWithString:self.string];
+    }else{
+        self.view.userInteractionEnabled = NO;
+    }
+    
     
 }
 

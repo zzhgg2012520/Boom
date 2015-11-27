@@ -39,7 +39,12 @@
     [self.tableView registerClass:[ActDetDisTableViewCell class] forCellReuseIdentifier:@"ADDID"];
     
     NSString * url_string = [NSString stringWithFormat:@"http://www.molyo.com//mActive/getInfo?id=%@&accessToken=1511161452277577954b2bec4045110d",self.actID];
-    [self requestDataWithListString:url_string];
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"NET"] isEqualToString:@"1"]) {
+        [self requestDataWithListString:url_string];
+    }else{
+        self.view.userInteractionEnabled = NO;
+    }
+    
     
     //cell自适应高度
     self.tableView.rowHeight = UITableViewAutomaticDimension;

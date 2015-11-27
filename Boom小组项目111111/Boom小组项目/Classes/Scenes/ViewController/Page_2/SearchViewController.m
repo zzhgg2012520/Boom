@@ -47,7 +47,13 @@ static NSString *const sceneCellID = @"scene";
     [self.businessTableView registerNib:[UINib nibWithNibName:@"BusinessCell" bundle:nil] forCellReuseIdentifier:businessCellID];
     
 #pragma mark -- request scenelist data
-    [self requestSceneList];
+    
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"NET"] isEqualToString:@"1"]) {
+        [self requestSceneList];
+    }else{
+        self.view.userInteractionEnabled = NO;
+        self.navigationItem.titleView.userInteractionEnabled = NO;
+    }
     
 #pragma mark -- request business data
 //    [self requestBusiness];
@@ -64,7 +70,14 @@ static NSString *const sceneCellID = @"scene";
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self requestBusiness];
+    
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"NET"] isEqualToString:@"1"]) {
+        [self requestBusiness];
+    }else{
+        self.view.userInteractionEnabled = NO;
+        self.navigationItem.titleView.userInteractionEnabled = NO;
+    }
+
     [self.businessTableView reloadData];
 }
 

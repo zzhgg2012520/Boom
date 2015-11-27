@@ -32,7 +32,6 @@ YALContextMenuTableViewDelegate
 @implementation FirstPageTableViewController
 
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -54,11 +53,74 @@ YALContextMenuTableViewDelegate
     // 去掉cell横线
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    // 下拉刷新
-    [self dropToRefresh];
-    // 上拉加载
-    [self pullToLoadData];
+    // 监测网络
+    [self monitorNet];
 
+}
+
+// 监测网络
+- (void)monitorNet
+{
+
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    __weak typeof(self) weakSelf = self;
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status)
+     {
+         switch (status)
+         {
+             case AFNetworkReachabilityStatusUnknown:
+             {
+                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"NET"];
+                 [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:@"NET"];
+                 UIAlertController * alterController = [UIAlertController alertControllerWithTitle:@"网络连接异常" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                 [weakSelf presentViewController:alterController animated:YES completion:nil];
+                 UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                     self.navigationItem.leftBarButtonItem.enabled = NO;
+                     self.navigationItem.rightBarButtonItem.enabled = NO;
+                     return;
+                 }];
+                 [alterController addAction:cancelAction];
+             }
+                 break;
+             case AFNetworkReachabilityStatusNotReachable:
+             {
+                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"NET"];
+                 [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:@"NET"];
+                 UIAlertController * alterController = [UIAlertController alertControllerWithTitle:@"你还没有连接网络哦" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                 [weakSelf presentViewController:alterController animated:YES completion:nil];
+                 UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                     self.navigationItem.leftBarButtonItem.enabled = NO;
+                     self.navigationItem.rightBarButtonItem.enabled = NO;
+                     return;
+                 }];
+                 [alterController addAction:cancelAction];
+                 
+             }
+                 break;
+             case AFNetworkReachabilityStatusReachableViaWWAN:
+             {
+                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"NET"];
+                 [[NSUserDefaults standardUserDefaults] setValue:@"1" forKey:@"NET"];
+                 // 下拉刷新
+                 [self dropToRefresh];
+                 // 上拉加载
+                 [self pullToLoadData];
+             }
+                 break;
+             case AFNetworkReachabilityStatusReachableViaWiFi:
+             {
+                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"NET"];
+                 [[NSUserDefaults standardUserDefaults] setValue:@"1" forKey:@"NET"];
+                 // 下拉刷新
+                 [self dropToRefresh];
+                 // 上拉加载
+                 [self pullToLoadData];
+             }
+                 break;
+             default:
+                 break;
+         }
+     }];
 }
 
 - (void)leftBarButtonItemAction:(UIBarButtonItem *)sender
@@ -317,7 +379,6 @@ YALContextMenuTableViewDelegate
         FirstPageListTableViewController
         * firstPageListTVC = [FirstPageListTableViewController new];
         firstPageListTVC.subId = subjectList.subId;
-//        firstPageListTVC.subjectList = subjectList;
         [self.navigationController pushViewController:firstPageListTVC animated:YES];
         self.hidesBottomBarWhenPushed = NO;
         

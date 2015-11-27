@@ -32,6 +32,10 @@ static NSString *const listCellID = @"listCell";
     //navigationController的title的name
     self.title = _titleStr;
  
+    // 去掉返回按钮文字
+    UIBarButtonItem * backButton = [UIBarButtonItem new];
+    backButton.title = @"";
+    self.navigationItem.backBarButtonItem = backButton;
     
     //修改了navigationBar.barTintColor背景的颜色和tintColor的字体颜色
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
@@ -50,17 +54,20 @@ static NSString *const listCellID = @"listCell";
     self.currentPage = 1;
     
 #pragma mark -- 请求数据：刷新，加载, 刷新数据
-    [self pullTlLoadData];
-    [self dropToRefresh];
-    [SearchDataManager sharedDataManager].result = ^(){
-        [self.tableView reloadData];
-    };
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"NET"] isEqualToString:@"1"]) {
+        [self pullTlLoadData];
+        [self dropToRefresh];
+        [SearchDataManager sharedDataManager].result = ^(){
+            [self.tableView reloadData];
+        };
+    }else{
+        self.view.userInteractionEnabled = NO;
+    }
+    
     
     //注册listCell
     [self.tableView registerNib:[UINib nibWithNibName:@"ListCell" bundle:nil] forCellReuseIdentifier:listCellID];
     
-    //隐藏tabBar
-//    self.tabBarController.tabBar.hidden = YES;
 }
 
 //初始化地图

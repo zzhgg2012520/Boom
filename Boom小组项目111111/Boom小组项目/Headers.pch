@@ -49,6 +49,9 @@
 #import "HTHorizontalSelectionList.h"
 #import "JYSlideSegmentController.h"
 #import "ShopDataManager.h"
+#import "AFNetworking.h"
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
 #import "Two_dimensional_codeViewController.h"
 #import "ZBarSDK.h"

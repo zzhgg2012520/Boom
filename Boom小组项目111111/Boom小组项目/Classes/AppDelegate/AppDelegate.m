@@ -17,7 +17,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+
     // 设置window
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
@@ -37,8 +37,7 @@
     }else{
         NSLog(@"不是第一次启动");
     }
-    
-    
+
     //leanCloud
     //如果使用美国站点，请加上这行代码 [AVOSCloud useAVCloudUS];
     [AVOSCloud setApplicationId:@"HCvzWF0XCueDw8g6elPN2Vuc"

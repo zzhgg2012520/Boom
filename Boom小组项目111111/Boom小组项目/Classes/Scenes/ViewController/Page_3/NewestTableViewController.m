@@ -35,9 +35,13 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"ExpHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:@"expHID"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ExpFooterTableViewCell" bundle:nil] forCellReuseIdentifier:@"expFID"];
     
-    [self pullToLoadData];
-    [self dropToRefresh];
-    
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"NET"] isEqualToString:@"1"]) {
+        [self pullToLoadData];
+        [self dropToRefresh];
+    }else{
+        self.view.userInteractionEnabled = NO;
+    }
+ 
 }
 
 - (void)didReceiveMemoryWarning {

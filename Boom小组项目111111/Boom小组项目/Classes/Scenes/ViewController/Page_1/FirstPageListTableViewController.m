@@ -23,8 +23,17 @@
     // tableView的属性设置
     [self setUpTableView];
     
-    // 数据解析
-    [self requestData];
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"NET"] isEqualToString:@"1"]) {
+        // 数据解析
+        [self requestData];
+    }else{
+        self.view.userInteractionEnabled = NO;
+    }
+    
+    // 去掉返回按钮文字
+    UIBarButtonItem * backButton = [UIBarButtonItem new];
+    backButton.title = @"";
+    self.navigationItem.backBarButtonItem = backButton;
     
     // 自定义titleView
     [self customTitleView];

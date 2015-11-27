@@ -19,6 +19,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationItem.title = @"地图";
+    
     // 初始化地图
     _mapView=[[MKMapView alloc]initWithFrame:self.view.frame];
     [self.view addSubview:_mapView];

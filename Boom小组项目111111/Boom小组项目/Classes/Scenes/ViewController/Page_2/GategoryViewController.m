@@ -26,9 +26,13 @@ static NSString * const reuseHeaderIdentifier = @"header";
     
     self.title = @"全部类别";
     
-    //请求数据
-    [self requestData];
-    
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"NET"] isEqualToString:@"1"]) {
+        //请求数据
+        [self requestData];
+    }else{
+        self.view.userInteractionEnabled = NO;
+    }
+ 
 #pragma mark -- 布局layout
     [self addCollectionView];
     
