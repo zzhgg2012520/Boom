@@ -26,6 +26,16 @@
     return manager;
 }
 
+- (void)setExtraCellHidden:(UITableView *)tableView
+{
+    UIView * view = [UIView new];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    imageView.image = [UIImage imageNamed:@""];
+    [view addSubview:imageView];
+    view.backgroundColor = [UIColor clearColor];
+    [tableView setTableFooterView:view];
+}
+
 - (void)requsetDataWithSceneString:(NSString *)string
 {
     if (self.sceneArray.count > 0) {

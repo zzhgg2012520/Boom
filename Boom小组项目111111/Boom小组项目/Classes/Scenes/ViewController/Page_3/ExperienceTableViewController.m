@@ -39,6 +39,10 @@
     [self pullToLoadData];
     [self dropToRefresh];
     
+    //影藏tableView线
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [[SearchDataManager sharedDataManager] setExtraCellHidden:self.tableView];
+    
 }
 
 - (void)didReceiveMemoryWarning {

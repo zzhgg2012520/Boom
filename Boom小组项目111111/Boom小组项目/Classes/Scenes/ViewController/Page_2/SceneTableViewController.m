@@ -61,6 +61,10 @@ static NSString *const listCellID = @"listCell";
     
     //初始化地图
     [self initMapView];
+    
+    //影藏tableView线
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [[SearchDataManager sharedDataManager] setExtraCellHidden:self.tableView];
 }
 //初始化地图
 - (void)initMapView

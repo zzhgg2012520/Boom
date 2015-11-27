@@ -20,7 +20,7 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mmy-gs-0lM">
-                        <rect key="frame" x="20" y="10" width="85" height="69"/>
+                        <rect key="frame" x="0.0" y="0.0" width="125" height="99"/>
                         <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <nil key="highlightedColor"/>
@@ -33,14 +33,14 @@
                 <constraint firstItem="mYi-Xh-ErG" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="BzU-L8-EbL"/>
                 <constraint firstItem="dfg-qN-Jqk" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="LVa-xL-TCv"/>
                 <constraint firstAttribute="trailing" secondItem="dfg-qN-Jqk" secondAttribute="trailing" id="NcQ-Cf-ENv"/>
-                <constraint firstAttribute="bottom" secondItem="Mmy-gs-0lM" secondAttribute="bottom" constant="20" id="O6H-dm-G3F"/>
+                <constraint firstAttribute="bottom" secondItem="Mmy-gs-0lM" secondAttribute="bottom" id="O6H-dm-G3F"/>
                 <constraint firstItem="mYi-Xh-ErG" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Tsy-TE-cq1"/>
                 <constraint firstAttribute="trailing" secondItem="mYi-Xh-ErG" secondAttribute="trailing" id="WQG-ra-FS8"/>
-                <constraint firstItem="Mmy-gs-0lM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="gdP-aK-xa8"/>
+                <constraint firstItem="Mmy-gs-0lM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="gdP-aK-xa8"/>
                 <constraint firstAttribute="bottom" secondItem="mYi-Xh-ErG" secondAttribute="bottom" id="jJm-6V-8DD"/>
                 <constraint firstAttribute="bottom" secondItem="dfg-qN-Jqk" secondAttribute="bottom" id="lmc-GZ-6QU"/>
-                <constraint firstAttribute="trailing" secondItem="Mmy-gs-0lM" secondAttribute="trailing" constant="20" id="p8C-0A-pUG"/>
-                <constraint firstItem="Mmy-gs-0lM" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="tAK-Cb-KSX"/>
+                <constraint firstAttribute="trailing" secondItem="Mmy-gs-0lM" secondAttribute="trailing" id="p8C-0A-pUG"/>
+                <constraint firstItem="Mmy-gs-0lM" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="tAK-Cb-KSX"/>
             </constraints>
             <size key="customSize" width="108" height="99"/>
             <connections>

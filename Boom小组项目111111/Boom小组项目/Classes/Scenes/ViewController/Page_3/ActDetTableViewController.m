@@ -44,6 +44,10 @@
     //cell自适应高度
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 100;
+    
+    //影藏tableView线
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [[SearchDataManager sharedDataManager] setExtraCellHidden:self.tableView];
 }
 
 #pragma mark - 解析数据

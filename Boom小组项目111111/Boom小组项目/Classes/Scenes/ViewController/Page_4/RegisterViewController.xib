@@ -21,17 +21,22 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                 </imageView>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" textAlignment="center" minimumFontSize="17" background="textFeild.png" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="sVm-P7-BIv">
-                    <rect key="frame" x="60" y="180" width="294" height="50"/>
+                    <rect key="frame" x="30" y="180" width="354" height="50"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="50" id="xpg-Hj-WwY"/>
+                        <constraint firstAttribute="height" constant="40" id="xpg-Hj-WwY"/>
                     </constraints>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="xpg-Hj-WwY"/>
+                        </mask>
+                    </variation>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w0Z-wW-66w">
-                    <rect key="frame" x="60" y="240" width="294" height="50"/>
+                    <rect key="frame" x="30" y="260" width="354" height="50"/>
                     <state key="normal" image="register.png">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -40,7 +45,7 @@
                     </connections>
                 </button>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="用户名(汉字,字母和数字)" textAlignment="center" minimumFontSize="17" background="textFeild.png" translatesAutoresizingMaskIntoConstraints="NO" id="msi-IV-HwY">
-                    <rect key="frame" x="60" y="60" width="294" height="50"/>
+                    <rect key="frame" x="30" y="60" width="354" height="50"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="l1X-k2-l8k"/>
@@ -50,7 +55,7 @@
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="邮箱(eg: XXX@XX.com)" textAlignment="center" minimumFontSize="17" background="textFeild.png" translatesAutoresizingMaskIntoConstraints="NO" id="k0s-H0-TK3">
-                    <rect key="frame" x="60" y="120" width="294" height="50"/>
+                    <rect key="frame" x="30" y="120" width="354" height="50"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="AuR-3B-5o9"/>
@@ -58,9 +63,14 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="AuR-3B-5o9"/>
+                        </mask>
+                    </variation>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mw8-oE-fqd">
-                    <rect key="frame" x="60" y="305" width="294" height="50"/>
+                    <rect key="frame" x="30" y="325" width="354" height="50"/>
                     <state key="normal" image="goback.png">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -75,14 +85,14 @@
                 <constraint firstItem="k0s-H0-TK3" firstAttribute="width" secondItem="msi-IV-HwY" secondAttribute="width" id="19X-9a-ccP"/>
                 <constraint firstItem="w0Z-wW-66w" firstAttribute="height" secondItem="sVm-P7-BIv" secondAttribute="height" id="3v9-QI-0wH"/>
                 <constraint firstItem="sVm-P7-BIv" firstAttribute="height" secondItem="k0s-H0-TK3" secondAttribute="height" id="45e-4t-4fo"/>
-                <constraint firstItem="msi-IV-HwY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="60" id="8p8-JV-dIm"/>
+                <constraint firstItem="msi-IV-HwY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="8p8-JV-dIm"/>
                 <constraint firstItem="w0Z-wW-66w" firstAttribute="width" secondItem="sVm-P7-BIv" secondAttribute="width" id="9eq-Z4-YOD"/>
                 <constraint firstItem="msi-IV-HwY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="60" id="9pa-G5-eAw"/>
                 <constraint firstItem="BbM-Wq-KDX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="AgA-fJ-nOa"/>
                 <constraint firstItem="sVm-P7-BIv" firstAttribute="width" secondItem="k0s-H0-TK3" secondAttribute="width" id="Cna-8z-2dh"/>
                 <constraint firstItem="sVm-P7-BIv" firstAttribute="top" secondItem="k0s-H0-TK3" secondAttribute="bottom" constant="10" id="Djv-0f-xIN"/>
-                <constraint firstItem="w0Z-wW-66w" firstAttribute="top" secondItem="sVm-P7-BIv" secondAttribute="bottom" constant="10" id="ETK-jn-Uzc"/>
-                <constraint firstAttribute="trailing" secondItem="msi-IV-HwY" secondAttribute="trailing" constant="60" id="Ek1-ZW-b7s"/>
+                <constraint firstItem="w0Z-wW-66w" firstAttribute="top" secondItem="sVm-P7-BIv" secondAttribute="bottom" constant="30" id="ETK-jn-Uzc"/>
+                <constraint firstAttribute="trailing" secondItem="msi-IV-HwY" secondAttribute="trailing" constant="30" id="Ek1-ZW-b7s"/>
                 <constraint firstItem="k0s-H0-TK3" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="IdX-Fy-bMY"/>
                 <constraint firstItem="mw8-oE-fqd" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="KRw-c0-yPy"/>
                 <constraint firstItem="mw8-oE-fqd" firstAttribute="top" secondItem="w0Z-wW-66w" secondAttribute="bottom" constant="15" id="LZ5-St-7eS"/>
