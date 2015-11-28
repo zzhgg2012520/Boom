@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *creatTimeLbl;
 @property (weak, nonatomic) IBOutlet UIButton *shopNameBtn;
 @property (weak, nonatomic) IBOutlet SDCycleScrollView *imgsView;
+@property (weak, nonatomic) IBOutlet UIView *ExpContentView;
 
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
 @property (nonatomic,strong) ExpDetails * ExpDetails;

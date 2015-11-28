@@ -17,6 +17,11 @@
 
 - (void)setExpDetails:(ExpDetails *)ExpDetails
 {
+    CGRect currentRect = [UIScreen mainScreen].applicationFrame;
+    
+    currentRect.origin.y = 0;
+    self.ExpContentView.frame = currentRect;
+
     [self.userImgView sd_setImageWithURL:[NSURL URLWithString:ExpDetails.userImg]];
     self.userNameLbl.text = ExpDetails.userName;
     self.creatTimeLbl.text = ExpDetails.createTime;
@@ -29,6 +34,16 @@
     self.imgsView.dotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
     self.imgsView.placeholderImage = [UIImage imageNamed:@"placeholder"];
     self.imgsView.imageURLStringsGroup = ExpDetails.imgs;
+    
 }
+
+//在cell里面重写layoutSubviews这个方法时，需要调用[super layoutSubviews];
+//- (void)layoutSubviews
+//{
+//    [super layoutSubviews];
+//    self.contentView.frame = [UIScreen mainScreen].bounds;
+//    NSLog(@"self.content.frame.size.width>>>>>%f",self.contentView.frame.size.width);
+//    NSLog(@"self.frame.size.width+++++%f",self.frame.size.width);
+//}
 
 @end
